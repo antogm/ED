@@ -12,10 +12,6 @@ typedef unsigned char byte;
   * Una instancia @e i del tipo de datos abstracto @c Imagen es un objeto
   * que representa la matriz bidimensional de puntos de una imagen digital
   * de niveles de gris.
-  * 
-  *
-  * Un ejemplo de su uso:
-  * @include ej_marco.cpp
   *
   * @author Jose Alberto Rodríguez Godoy
   * @author Antonio González Maldonado
