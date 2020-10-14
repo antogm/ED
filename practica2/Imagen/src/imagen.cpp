@@ -103,6 +103,11 @@ void Imagen::LeerImagen (char* ruta){
 		case IMG_PPM:
 			img = LeerImagenPPM(ruta, nf, nc);
 			break;
+		
+		case IMG_DESCONOCIDO:
+			cerr << "Error: Formato de imagen no soportado." << endl;
+			cerr << "Terminando la ejecucion del programa." << endl;
+			exit (2);
 	};
 
 	if (!img){

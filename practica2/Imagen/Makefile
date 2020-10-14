@@ -8,18 +8,19 @@ all:$(BIN)/pruebaImagen
 
 # ************
 
-$(BIN)/pruebaImagen: $(OBJ)/pruebaImagen.o $(OBJ)/imagen.o
-	$(CXX) -o $(BIN)/pruebaImagen $(OBJ)/pruebaImagen.o $(OBJ)/imagen.o
+$(BIN)/pruebaImagen: $(OBJ)/pruebaImagen.o $(OBJ)/imagen.o $(OBJ)/imagenES.o
+	$(CXX) -o $(BIN)/pruebaImagen $(OBJ)/pruebaImagen.o $(OBJ)/imagen.o $(OBJ)/imagenES.o
 
 $(OBJ)/pruebaImagen.o: $(SRC)/pruebaImagen.cpp $(INC)/imagen.h
-	$(CXX) $(CPPFLAGS)  $(SRC)/pruebaImagen.cpp -o  $(OBJ)/pruebaImagen.o 
+	$(CXX) $(CPPFLAGS) $(SRC)/pruebaImagen.cpp -o $(OBJ)/pruebaImagen.o 
 
-$(OBJ)/imagen.o: $(SRC)/imagen.cpp $(INC)/imagen.h $(INC)/imagenES.h 
-	g++ -g -c -o $(OBJ)/imagen.o -Iinclude $(SRC)/imagen.cpp
+$(OBJ)/imagen.o: $(SRC)/imagen.cpp $(INC)/imagen.h $(INC)/imagenES.h
+	$(CXX) $(CPPFLAGS) $(SRC)/imagen.cpp -o $(OBJ)/imagen.o
 
 $(OBJ)/imagenES.o: $(SRC)/imagenES.cpp $(INC)/imagenES.h
-	g++ -g -c -o $(OBJ)/imagenES.o -Iinclude $(SRC)/imagenES.cpp
+	$(CXX) $(CPPFLAGS) $(SRC)/imagenES.cpp -o $(OBJ)/imagenES.o
 
+# ************
 
 clean :
 	-rm $(OBJ)/*
