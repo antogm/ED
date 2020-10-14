@@ -7,10 +7,12 @@
 using namespace std;
 
 Imagen ej1_umbralizacion(char* fichE, char* fichS, const int T1, const int T2);
+Imagen ej3_zoom(char* fichE, char* fichS, int, int, int, int);
 
 int main (int argc, char* argv[]){
 	
 	Imagen imagen1 = ej1_umbralizacion((char *) "imagenes/vacas.pgm", (char *) "ej1.pgm", 50, 200);
+	Imagen imagen3 = ej3_zoom((char *) "imagenes/vacas.pgm", (char *) "ej3.pgm", 100, 100, 200, 200);
 
 	return 0;
 };
