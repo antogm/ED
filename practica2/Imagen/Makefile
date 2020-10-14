@@ -27,3 +27,6 @@ clean :
 
 mrproper : clean
 	-rm $(BIN)/* $(OBJ)/*
+
+execute:
+	./$(BIN)/pruebaImagen
