@@ -3,3 +3,7 @@ practica2/Imagen/obj/*
 practica2/Imagen/bin/*
 practica2/Imagen/lib/*
 practica2/Imagen/imagenes/*
+
+practica2/Racional/*
+practica2/Imagen/.vscode
+*.pdf

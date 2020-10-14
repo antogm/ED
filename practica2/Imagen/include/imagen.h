@@ -2,6 +2,7 @@
 #define IMAGEN_H
 
 #include <iostream>
+#include "imagenES.h"
 
 typedef unsigned char byte;
 
@@ -16,8 +17,9 @@ typedef unsigned char byte;
   * Un ejemplo de su uso:
   * @include ej_marco.cpp
   *
+  * @author Jose Alberto Rodríguez Godoy
   * @author Antonio González Maldonado
-  * @date 10/10/2020
+  * @date 14/10/2020
   */
 
 class Imagen {
@@ -36,8 +38,8 @@ class Imagen {
 	 *
 	 */
 
-	int nf, nc;
-	byte **img;	// 0-minima luminosidad 255-maxima luminosidad
+	int nf, nc, npixeles;
+	byte *img;	// 0-minima luminosidad 255-maxima luminosidad
 
 
 	public:
@@ -114,6 +116,19 @@ class Imagen {
 	 * @param i Imagen a asignar en el objeto implícito
 	 */
 	Imagen& operator= (const Imagen& i);
+
+	/**
+  	 * @brief Salida de una imagen a un fichero
+  	 * @param fichero ruta al fichero en el que escribir la imagen
+	 */
+	void EscribirImagen (char* ruta);
+
+	/**
+	 * @brief Entrada de una imagen desde un fichero
+	 * @param fichero ruta al fichero desde el que leer la imagen
+	 * @post Sobreescribe la instancia de Imagen actual
+	 */
+	void LeerImagen (char* ruta);
 };
 
 #endif

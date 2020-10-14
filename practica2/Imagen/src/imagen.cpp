@@ -7,6 +7,7 @@ using namespace std;
 Imagen::Imagen(){
 	nf = 0;
 	nc = 0;
+	npixeles = 0;
 	img = 0;
 }
 
@@ -14,35 +15,28 @@ Imagen::Imagen(){
 Imagen::Imagen(const Imagen &J){
 	nf = J.nf;
 	nc = J.nc;
+	npixeles = J.npixeles;
 
 	// Reserva memoria
-	img = new unsigned char* [nf];
-	for (int i = 0; i < nf; i++)
-		img[i] = new unsigned char[nc];
+	img = new unsigned char [nf * nc];
 
 	// Copia los valores
-	for (int i = 0; i < nf; i++)
-		for (int j = 0; j < nc; j++)
-			img[i][j] = J.img[i][j];
+	for (int i = 0; i < npixeles; i++)
+		img[i] = J.img[i];
 }
 
 // Constructor por parámetros
 Imagen::Imagen(int fils, int cols){
 	nf = fils;
 	nc = cols;
+	npixeles = nf * nc;
 
 	// Reserva memoria
-	img = new unsigned char* [nf];
-	for (int i = 0; i < nf; i++)
-		img[i] = new unsigned char[nc];
+	img = new unsigned char [nf * nc];
 }
 
 // Destructor
 Imagen::~Imagen(){
-	
-	for (int i = 0; i < nf; i++)
-		delete[] img[i];
-
 	delete[] img;
 }
 
@@ -59,13 +53,13 @@ int Imagen::num_columnas() const{
 // Asigna un valor a un punto de la matriz
 void Imagen::asigna_pixel(int fila, int col, unsigned char valor){
 	if (fila < nf && col < nc && valor >= 0 && valor <= 255)
-		img[fila][col] = valor;
+		img[fila*nc + col] = valor;
 }
 
 // Consulta el valor de un punto de la matriz
 unsigned char Imagen::valor_pixel(int fila, int col) const{
 	if (fila < nf && col < nc)
-		return img[fila][col];
+		return img[fila*nc +col];
 	else
 		return 0;
 }
@@ -74,16 +68,49 @@ unsigned char Imagen::valor_pixel(int fila, int col) const{
 Imagen& Imagen::operator= (const Imagen& _imagen){
 	nf = _imagen.nf;
 	nc = _imagen.nc;
+	npixeles = _imagen.npixeles;
 
 	// Reserva memoria
-	img = new unsigned char* [nf];
-	for (int i = 0; i < nf; i++)
-		img[i] = new unsigned char[nc];
+	img = new unsigned char [nf * nc];
 
 	// Copia los valores
-	for (int i = 0; i < nf; i++)
-		for (int j = 0; j < nc; j++)
-			img[i][j] = _imagen.img[i][j];
+	for (int i = 0; i < npixeles; i++)
+		img[i] = _imagen.img[i];
 
 	return *this;
 };
+
+// Escribe la imagen en un fichero
+void Imagen::EscribirImagen (char* ruta){
+	
+	if ( !EscribirImagenPGM(ruta, img, nf, nc) ){
+		// No se ha podido escribir la imagen
+		cerr << "Error: No pudo escribirse la imagen." << endl;
+    	cerr << "Terminando la ejecucion del programa." << endl;
+    	exit (2);
+	};
+}
+
+// Lee la imagen desde un fichero
+void Imagen::LeerImagen (char* ruta){
+
+	TipoImagen tipo = LeerTipoImagen(ruta);
+	switch( tipo ){
+		case IMG_PGM:
+			img = LeerImagenPGM(ruta, nf, nc);
+			break;
+
+		case IMG_PPM:
+			img = LeerImagenPPM(ruta, nf, nc);
+			break;
+	};
+
+	if (!img){
+		// No se ha podido leer la imagen
+		cerr << "Error: No pudo leerse la imagen." << endl;
+    	cerr << "Terminando la ejecucion del programa." << endl;
+    	exit (2);
+	};
+
+	npixeles = nf * nc;
+}
