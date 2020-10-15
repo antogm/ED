@@ -8,9 +8,15 @@ using namespace std;
 
 Imagen ej1_umbralizacion(char* fichE, char* fichS, const int T1, const int T2);
 
+//Imagen ej4_icono(char* fich_orig, char* fich_rdo, const int nf, const int nc);
+Imagen ej5_contrate(char* fichE, char* fichS, const int min, const int max);
+
+
 int main (int argc, char* argv[]){
 	
 	Imagen imagen1 = ej1_umbralizacion((char *) "imagenes/vacas.pgm", (char *) "ej1.pgm", 50, 200);
+
+	//Imagen imagen4 = ej4_icono((char *) "imagenes/vacas.pgm", (char *) "ej4.pgm", 84, 125);
 
 	return 0;
 };
@@ -39,3 +45,12 @@ Imagen ej1_umbralizacion(char* fichE, char* fichS, const int T1, const int T2){
 	return imagen;
 };
 
+/*
+Imagen ej4_icono(char* fich_orig, char* fich_rdo, const int nf, const int nc){
+
+	// Como precondición no se puede pasar la resolución de la imagen resultante que no sea
+	// simplificación de la resolución de la imagen original (10/10 = 5/5 Bien, 10/10 != 5/4 Mal).
+
+	
+}
+*/
