@@ -7,24 +7,20 @@
 using namespace std;
 
 Imagen ej1_umbralizacion(char* fichE, char* fichS, const int T1, const int T2);
-//Imagen ej3_zoom(char* fichE, char* fichS, int, int, int, int);
-
-//Imagen ej4_icono(char* fich_orig, char* fich_rdo, const int nf, const int nc);
+Imagen ej3_zoom(char* fichE, char* fichS);
+Imagen ej4_icono(char* fich_orig, char* fich_rdo, const int nf, const int nc);
 Imagen ej5_contraste(char* fichE, char* fichS, const int min, const int max);
 
 
 int main (int argc, char* argv[]){
 	
 	Imagen imagen1 = ej1_umbralizacion((char *) "imagenes/vacas.pgm", (char *) "ej1.pgm", 50, 200);
-	//Imagen imagen3 = ej3_zoom((char *) "imagenes/vacas.pgm", (char *) "ej3.pgm", 100, 100, 200, 200);
-
+	Imagen imagen3 = ej3_zoom((char *) "imagenes/vacas.pgm", (char *) "ej3.pgm");
 	//Imagen imagen4 = ej4_icono((char *) "imagenes/vacas.pgm", (char *) "ej4.pgm", 84, 125);
 	Imagen imagen5 = ej5_contraste((char*) "imagenes/celulas.pgm", (char*) "ej5.pgm", 3, 250);
 
 	return 0;
 };
-
-
 
 
 //
@@ -49,18 +45,61 @@ Imagen ej1_umbralizacion(char* fichE, char* fichS, const int T1, const int T2){
 
 	// Guarda el resultado en un fichero
 	imagen.EscribirImagen(fichS);
+	
 	return imagen;
 };
-/*
-Imagen ej3_zoom(char* fichE, char* fichS, int, int, int, int){
+
+Imagen ej3_zoom(char* fichE, char* fichS){
 	
 	// Construye la imagen desde el fichero
 	Imagen imagen;
 	imagen.LeerImagen(fichE);
 
-	return imagen;
+	// Comprueba que la imagen sea apta
+	const int N = imagen.num_filas();
+
+	if (N != imagen.num_columnas()){
+		cerr << "Error: Esta función solo permite hacer zoom a imágenes cuadradas" << endl;		// <-- lo pone en el enunciado del ejercicio
+		exit (1);
+	};
+
+	// Crea una nueva imagen con las dimensiones que tendrá al hacerle zoom
+	Imagen imagenZoom(2*N -1, 2*N -1);
+
+	// Inserta la imagen original en las posiciones que le corresponden de la nueva imagen
+	for (int i = 0; i < N; i ++)
+		for (int j = 0; j < N; j ++)
+			imagenZoom.asigna_pixel( 2*i, 2*j, imagen.valor_pixel(i, j) );
+	
+	// Interpola las columnas vacías de la imagen resultado
+	for (int i = 0; i < (2*N -1); i++)					// Recorre todas las filas
+		for (int j = 1; j < (2*N -2); j += 2){			// Recorre las columnas impares (son las nuevas que estan vacías)
+			
+			// Si es una columna impar es una columna a interpolar
+				int valor1 = imagenZoom.valor_pixel(i, j-1),
+					valor2 = imagenZoom.valor_pixel(i, j+1),
+					media = (valor1 + valor2) / 2;
+				
+				imagenZoom.asigna_pixel(i, j, media);
+		}
+	
+	// Interpola las filas vacías de la imagen resultado
+	for (int i = 1; i < (2*N -2); i += 2)				// Recorre las filas impares (son las nuevas que estan vacías)
+		for (int j = 0; j < (2*N -1); j++){				// Recorre todas las columnas
+
+			// Si es una columna impar es una columna a interpolar
+				int valor1 = imagenZoom.valor_pixel(i-1, j),
+					valor2 = imagenZoom.valor_pixel(i+1, j),
+					media = (valor1 + valor2) / 2;
+
+				imagenZoom.asigna_pixel(i, j, media);
+		}
+	
+	// Guarda el resultado en un fichero
+	imagenZoom.EscribirImagen(fichS);
+
+	return imagenZoom;
 };
-*/
 
 /*
 Imagen ej4_icono(char* fich_orig, char* fich_rdo, const int nf, const int nc){

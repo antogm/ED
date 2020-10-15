@@ -26,7 +26,7 @@ clean :
 	-rm $(OBJ)/*
 
 mrproper : clean
-	-rm $(BIN)/* $(OBJ)/*
+	-rm $(BIN)/*
 
 execute:
 	./$(BIN)/pruebaImagen
