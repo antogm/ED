@@ -10,7 +10,7 @@ Imagen ej1_umbralizacion(char* fichE, char* fichS, const int T1, const int T2);
 //Imagen ej3_zoom(char* fichE, char* fichS, int, int, int, int);
 
 //Imagen ej4_icono(char* fich_orig, char* fich_rdo, const int nf, const int nc);
-Imagen ej5_contrate(char* fichE, char* fichS, const int min, const int max);
+Imagen ej5_contraste(char* fichE, char* fichS, const int min, const int max);
 
 
 int main (int argc, char* argv[]){
@@ -19,7 +19,7 @@ int main (int argc, char* argv[]){
 	//Imagen imagen3 = ej3_zoom((char *) "imagenes/vacas.pgm", (char *) "ej3.pgm", 100, 100, 200, 200);
 
 	//Imagen imagen4 = ej4_icono((char *) "imagenes/vacas.pgm", (char *) "ej4.pgm", 84, 125);
-	Imagen imagen5 = ej5_contrate((char*) "imagenes/celulas.pgm", (char*) "ej5.pgm", 3, 250);
+	Imagen imagen5 = ej5_contraste((char*) "imagenes/celulas.pgm", (char*) "ej5.pgm", 3, 250);
 
 	return 0;
 };
@@ -51,7 +51,7 @@ Imagen ej1_umbralizacion(char* fichE, char* fichS, const int T1, const int T2){
 	imagen.EscribirImagen(fichS);
 	return imagen;
 };
-
+/*
 Imagen ej3_zoom(char* fichE, char* fichS, int, int, int, int){
 	
 	// Construye la imagen desde el fichero
@@ -60,6 +60,7 @@ Imagen ej3_zoom(char* fichE, char* fichS, int, int, int, int){
 
 	return imagen;
 };
+*/
 
 /*
 Imagen ej4_icono(char* fich_orig, char* fich_rdo, const int nf, const int nc){
@@ -71,26 +72,29 @@ Imagen ej4_icono(char* fich_orig, char* fich_rdo, const int nf, const int nc){
 }
 */
 
-Imagen ej5_contrate(char* fichE, char* fichS, const int min, const int max){
+Imagen ej5_contraste(char* fichE, char* fichS, const int min, const int max){
 	// Fórmula a aplicar a cada píxel -> t(z) = z' = min + [((max-min) / (b-a)) * (z-a)];
 	// min, max = Niveles límite de la nueva imagen de salida.
 	// z = pixel actual.
 	// Parte constante (calcular de forma independiente una única vez) = [(max-min) / (b-a)]
 
 	// Construir una imagen desde fichero:
+
+
 	Imagen imagen;
 	imagen.LeerImagen(fichE);
 
 	// Obtener los valores límite de la imagen de entrada (Podemos hacer una función independiente):
-	int a = 256;
-	int b = 0;
+	int a,b;
+
 	for(int i=0; i<imagen.num_filas(); i++){
-		for(int j=0; j<imagen.num_columnas(); i++){	// Necesario poner dos if ya que se pueden cumplir las dos condiciones.
-			if(imagen.valor_pixel(i,j)<a){
-				a = imagen.valor_pixel(i,j);
-			}
-			if(imagen.valor_pixel(i,j)>b){	
+		for(int j=0; j<imagen.num_columnas(); j++){
+			if(i == 0 && j == 0){
 				b = imagen.valor_pixel(i,j);
+				a = imagen.valor_pixel(i,j);
+			}else{
+				if(imagen.valor_pixel(i,j) > b){	b = imagen.valor_pixel(i,j);	}
+				if(imagen.valor_pixel(i,j) < a){	a = imagen.valor_pixel(i,j);	}
 			}
 		}
 	}
@@ -107,5 +111,6 @@ Imagen ej5_contrate(char* fichE, char* fichS, const int min, const int max){
 
 	// Guardar el resultado en un fichero:
 	imagen.EscribirImagen(fichS);
+
 	return imagen;
-}
+};
