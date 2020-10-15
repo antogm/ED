@@ -6,4 +6,6 @@ practica2/Imagen/imagenes/*
 
 practica2/Racional/*
 practica2/Imagen/.vscode
+practica2/Imagen/*.ppm
+practica2/Imagen/*.pgm
 *.pdf

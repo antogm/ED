@@ -20,6 +20,10 @@ int main (int argc, char* argv[]){
 
 
 
+//
+//	Implementación de los ejercicios
+//
+
 Imagen ej1_umbralizacion(char* fichE, char* fichS, const int T1, const int T2){
 	if (T1 > T2){
 		cerr << "Error: El parámetro T1 no puede ser mayor que T2" << endl;
@@ -41,3 +45,11 @@ Imagen ej1_umbralizacion(char* fichE, char* fichS, const int T1, const int T2){
 	return imagen;
 };
 
+Imagen ej3_zoom(char* fichE, char* fichS, int, int, int, int){
+	
+	// Construye la imagen desde el fichero
+	Imagen imagen;
+	imagen.LeerImagen(fichE);
+
+	return imagen;
+};
