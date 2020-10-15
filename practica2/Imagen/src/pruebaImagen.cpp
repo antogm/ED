@@ -7,7 +7,7 @@
 using namespace std;
 
 Imagen ej1_umbralizacion(char* fichE, char* fichS, const int T1, const int T2);
-Imagen ej3_zoom(char* fichE, char* fichS, int, int, int, int);
+//Imagen ej3_zoom(char* fichE, char* fichS, int, int, int, int);
 
 //Imagen ej4_icono(char* fich_orig, char* fich_rdo, const int nf, const int nc);
 Imagen ej5_contrate(char* fichE, char* fichS, const int min, const int max);
@@ -16,7 +16,7 @@ Imagen ej5_contrate(char* fichE, char* fichS, const int min, const int max);
 int main (int argc, char* argv[]){
 	
 	Imagen imagen1 = ej1_umbralizacion((char *) "imagenes/vacas.pgm", (char *) "ej1.pgm", 50, 200);
-	Imagen imagen3 = ej3_zoom((char *) "imagenes/vacas.pgm", (char *) "ej3.pgm", 100, 100, 200, 200);
+	//Imagen imagen3 = ej3_zoom((char *) "imagenes/vacas.pgm", (char *) "ej3.pgm", 100, 100, 200, 200);
 
 	//Imagen imagen4 = ej4_icono((char *) "imagenes/vacas.pgm", (char *) "ej4.pgm", 84, 125);
 	Imagen imagen5 = ej5_contrate((char*) "imagenes/celulas.pgm", (char*) "ej5.pgm", 3, 250);
