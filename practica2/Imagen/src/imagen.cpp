@@ -52,13 +52,13 @@ int Imagen::num_columnas() const{
 
 // Asigna un valor a un punto de la matriz
 void Imagen::asigna_pixel(int fila, int col, unsigned char valor){
-	if (fila < nf && col < nc && valor >= 0 && valor <= 255)
+	if (fila < nf && fila > 0 && col < nc && col > 0 && valor >= 0 && valor <= 255)
 		img[fila*nc + col] = valor;
 }
 
 // Consulta el valor de un punto de la matriz
 unsigned char Imagen::valor_pixel(int fila, int col) const{
-	if (fila < nf && col < nc)
+	if (fila < nf && fila > 0 && col < nc && col > 0)
 		return img[fila*nc +col];
 	else
 		return 0;
