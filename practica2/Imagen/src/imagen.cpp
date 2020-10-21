@@ -7,7 +7,6 @@ using namespace std;
 Imagen::Imagen(){
 	nf = 0;
 	nc = 0;
-	npixeles = 0;
 	img = 0;
 }
 
@@ -15,28 +14,35 @@ Imagen::Imagen(){
 Imagen::Imagen(const Imagen &J){
 	nf = J.nf;
 	nc = J.nc;
-	npixeles = J.npixeles;
 
 	// Reserva memoria
-	img = new unsigned char [nf * nc];
+	img = new byte* [nf];
+	for (int i = 0; i < nf; i++)
+		img[i] = new byte[nc];
 
 	// Copia los valores
-	for (int i = 0; i < npixeles; i++)
-		img[i] = J.img[i];
+	for (int i = 0; i < nf; i++)
+		for (int j = 0; j < nc; j++)
+			img[i][j] = J.img[i][j];
 }
 
 // Constructor por parámetros
 Imagen::Imagen(int fils, int cols){
 	nf = fils;
 	nc = cols;
-	npixeles = nf * nc;
 
 	// Reserva memoria
-	img = new unsigned char [nf * nc];
+	img = new byte* [nf];
+	for (int i = 0; i < nf; i++)
+		img[i] = new byte[nc];
 }
 
 // Destructor
 Imagen::~Imagen(){
+	
+	for (int i = 0; i < nf; i++)
+		delete[] img[i];
+
 	delete[] img;
 }
 
@@ -51,15 +57,15 @@ int Imagen::num_columnas() const{
 }
 
 // Asigna un valor a un punto de la matriz
-void Imagen::asigna_pixel(int fila, int col, unsigned char valor){
+void Imagen::asigna_pixel(int fila, int col, byte valor){
 	if (fila < nf && fila > 0 && col < nc && col > 0 && valor >= 0 && valor <= 255)
-		img[fila*nc + col] = valor;
+		img[fila][col] = valor;
 }
 
 // Consulta el valor de un punto de la matriz
-unsigned char Imagen::valor_pixel(int fila, int col) const{
+byte Imagen::valor_pixel(int fila, int col) const{
 	if (fila < nf && fila > 0 && col < nc && col > 0)
-		return img[fila*nc +col];
+		return img[fila][col];
 	else
 		return 0;
 }
@@ -68,22 +74,62 @@ unsigned char Imagen::valor_pixel(int fila, int col) const{
 Imagen& Imagen::operator= (const Imagen& _imagen){
 	nf = _imagen.nf;
 	nc = _imagen.nc;
-	npixeles = _imagen.npixeles;
 
 	// Reserva memoria
-	img = new unsigned char [nf * nc];
+	img = new byte* [nf];
+	for (int i = 0; i < nf; i++)
+		img[i] = new byte[nc];
 
 	// Copia los valores
-	for (int i = 0; i < npixeles; i++)
-		img[i] = _imagen.img[i];
+	for (int i = 0; i < nf; i++)
+		for (int j = 0; j < nc; j++)
+			img[i][j] = _imagen.img[i][j];
 
 	return *this;
 };
 
+// Funciones auxiliares para E/S
+template <typename T>
+T** ArrayToMatriz (const T* array, int nf, int nc){
+
+	T** matriz;
+
+	// Reserva memoria
+	matriz = new T* [nf];
+	for (int i = 0; i < nf; i++)
+		matriz[i] = new T[nc];
+
+	// Asigna los valores del array en la matriz
+	for (int i = 0; i < nf; i++)
+		for (int j = 0; j < nc; j++)
+			matriz[i][j] = array[i*nc +j];
+
+	return matriz;
+}
+
+template<typename T>
+T* MatrizToArray (T **matriz, int nf, int nc){
+
+	T *array;
+
+	// Reserva memoria
+	array = new T [nf * nc];
+
+	// Asigna los valores de la matriz en el array
+	for (int i = 0; i < nf; i++)
+		for (int j = 0; j < nc; j++)
+			array[i*nc +j] = matriz[i][j];
+
+	return array;
+}
+
 // Escribe la imagen en un fichero
 void Imagen::EscribirImagen (char* ruta){
 	
-	if ( !EscribirImagenPGM(ruta, img, nf, nc) ){
+	byte* img_array;
+	img_array = MatrizToArray(img, nf, nc);
+
+	if ( !EscribirImagenPGM(ruta, img_array, nf, nc) ){
 		// No se ha podido escribir la imagen
 		cerr << "Error: No pudo escribirse la imagen." << endl;
     	cerr << "Terminando la ejecucion del programa." << endl;
@@ -95,13 +141,14 @@ void Imagen::EscribirImagen (char* ruta){
 void Imagen::LeerImagen (char* ruta){
 
 	TipoImagen tipo = LeerTipoImagen(ruta);
+	byte* img_array;
 	switch( tipo ){
 		case IMG_PGM:
-			img = LeerImagenPGM(ruta, nf, nc);
+			img_array = LeerImagenPGM(ruta, nf, nc);
 			break;
 
 		case IMG_PPM:
-			img = LeerImagenPPM(ruta, nf, nc);
+			img_array = LeerImagenPPM(ruta, nf, nc);
 			break;
 		
 		case IMG_DESCONOCIDO:
@@ -110,12 +157,12 @@ void Imagen::LeerImagen (char* ruta){
 			exit (2);
 	};
 
-	if (!img){
+	if (!img_array){
 		// No se ha podido leer la imagen
 		cerr << "Error: No pudo leerse la imagen." << endl;
     	cerr << "Terminando la ejecucion del programa." << endl;
     	exit (2);
 	};
 
-	npixeles = nf * nc;
+	img = ArrayToMatriz(img_array, nf, nc);
 }

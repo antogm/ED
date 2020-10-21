@@ -34,8 +34,8 @@ class Imagen {
 	 *
 	 */
 
-	int nf, nc, npixeles;
-	byte *img;	// 0-minima luminosidad 255-maxima luminosidad
+	int nf, nc;
+	byte **img;	// 0-minima luminosidad 255-maxima luminosidad
 
 
 	public:
@@ -95,7 +95,7 @@ class Imagen {
 	 *       0 <= valor <= 255
 	 * @post La imagen modifica (fila,col) por valor
 	 */
-	void asigna_pixel (int fila, int col, unsigned char valor);
+	void asigna_pixel (int fila, int col, byte valor);
 
 	/**
 	 * @brief Consulta el valor de luminosidad de un punto de la imagen 
@@ -105,7 +105,7 @@ class Imagen {
 	 * @pre 0 <= fila < num_filas() y 0 <= col < num_columnas()
 	 * @post La imagen no se modifica y el valor a devolver está entre 0 y 255
 	 */
-	unsigned char valor_pixel (int fila, int col) const;
+	byte valor_pixel (int fila, int col) const;
 
 	/**
 	 * @brief Operador de asignación
