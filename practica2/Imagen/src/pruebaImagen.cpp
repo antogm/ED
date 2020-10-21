@@ -2,13 +2,15 @@
 // Este programa implementa y ejecuta todos los ejercicios de la práctica
 
 #include <iostream>
+#include <math.h>
+#include <vector>
 #include "imagen.h"
 
 using namespace std;
 
 Imagen ej1_umbralizacion(char* fichE, char* fichS, const int T1, const int T2);
 Imagen ej3_zoom(char* fichE, char* fichS);
-Imagen ej4_icono(char* fich_orig, char* fich_rdo, const int nf, const int nc);
+Imagen ej4_icono(char* fichE, char* fichS, const int nf, const int nc);
 Imagen ej5_contraste(char* fichE, char* fichS, const int min, const int max);
 
 
@@ -16,7 +18,7 @@ int main (int argc, char* argv[]){
 	
 	Imagen imagen1 = ej1_umbralizacion((char *) "imagenes/vacas.pgm", (char *) "ej1.pgm", 50, 200);
 	Imagen imagen3 = ej3_zoom((char *) "imagenes/vacas.pgm", (char *) "ej3.pgm");
-	//Imagen imagen4 = ej4_icono((char *) "imagenes/vacas.pgm", (char *) "ej4.pgm", 84, 125);
+	Imagen imagen4 = ej4_icono((char *) "imagenes/vacas.pgm", (char *) "ej4.pgm", 84, 125);
 	Imagen imagen5 = ej5_contraste((char*) "imagenes/celulas.pgm", (char*) "ej5.pgm", 3, 250);
 
 	return 0;
@@ -101,24 +103,82 @@ Imagen ej3_zoom(char* fichE, char* fichS){
 	return imagenZoom;
 };
 
-/*
-Imagen ej4_icono(char* fich_orig, char* fich_rdo, const int nf, const int nc){
 
-	// Como precondición no se puede pasar la resolución de la imagen resultante que no sea
-	// simplificación de la resolución de la imagen original (10/10 = 5/5 Bien, 10/10 != 5/4 Mal).
+Imagen ej4_icono(char* fichE, char* fichS, const int nf, const int nc){
 
+	int f_reducida = nf;
+	int c_reducida = nc;
+
+	// Importar imagen original y crear la nueva con el tamaño indicado:
+	Imagen original;
+	original.LeerImagen(fichE);
+	Imagen reducida(f_reducida, c_reducida);
+	Imagen ajustadoAnchura(original.num_filas(), c_reducida);
+
+	// Creación de arrays de filas y columnas auxiliares:
+	unsigned char array_filas[f_reducida];
+	unsigned char array_columnas[c_reducida];
+
+	for(int i=0; i<f_reducida; i++){	array_filas[i] = 0;	}
+	for(int i=0; i<c_reducida; i++){	array_columnas[i] = 0;	}
+
+	// Reparto de píxeles original->reducida (filas):
+	int posicion;
+	for(int i=0; i<original.num_filas(); i++){
+		posicion = i%f_reducida;
+		array_filas[posicion] += 1;
+	}
+	// Reparto de píxeles original->reducida (columnas):
+	for(int i=0; i<original.num_columnas(); i++){
+		posicion = i%c_reducida;
+		array_columnas[posicion] += 1;
+	}
+
+	// Reducción en anchura:
+	int checkpoint = 0;
+	int sumatoria = 0;
+	int AVG = 0;
+
+	for(int subconjunto=0; subconjunto<c_reducida; subconjunto++){
+		for(int fila=0; fila<original.num_filas(); fila++){
+			for(int columna=checkpoint; columna < array_columnas[subconjunto]+checkpoint; columna++){
+				sumatoria += original.valor_pixel(fila, columna);
+			}
+			AVG = sumatoria / array_columnas[subconjunto]; 
+			ajustadoAnchura.asigna_pixel(fila, subconjunto, AVG);
+			AVG = 0;
+			sumatoria = 0;
+		}
+		checkpoint+=array_columnas[subconjunto];
+	}
 	
+	checkpoint = 0;
+	sumatoria = 0;
+	AVG = 0;
+
+	for(int subconjunto=0; subconjunto<f_reducida; subconjunto++){
+		for(int columna=0; columna<c_reducida; columna++){
+			for(int fila=checkpoint; fila < array_filas[subconjunto]+checkpoint; fila++){
+				sumatoria += ajustadoAnchura.valor_pixel(fila, columna);
+			}
+			AVG = sumatoria / array_filas[subconjunto]; 
+			reducida.asigna_pixel(subconjunto, columna, AVG);
+			AVG = 0;
+			sumatoria = 0;
+		}
+		checkpoint+=array_filas[subconjunto];
+	}
+
+	// CAMBIAR EN LA VERSIÓN FINAL:
+	reducida.EscribirImagen(fichS);
+	return reducida;
 }
-*/
+
 
 Imagen ej5_contraste(char* fichE, char* fichS, const int min, const int max){
 	// Fórmula a aplicar a cada píxel -> t(z) = z' = min + [((max-min) / (b-a)) * (z-a)];
-	// min, max = Niveles límite de la nueva imagen de salida.
-	// z = pixel actual.
-	// Parte constante (calcular de forma independiente una única vez) = [(max-min) / (b-a)]
 
 	// Construir una imagen desde fichero:
-
 
 	Imagen imagen;
 	imagen.LeerImagen(fichE);
