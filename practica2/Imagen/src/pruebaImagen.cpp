@@ -19,7 +19,7 @@ int main (int argc, char* argv[]){
 	Imagen imagen1 = ej1_umbralizacion((char *) "imagenes/vacas.pgm", (char *) "ej1.pgm", 50, 200);
 	Imagen imagen3 = ej3_zoom((char *) "imagenes/vacas.pgm", (char *) "ej3.pgm");
 	Imagen imagen4 = ej4_icono((char *) "imagenes/vacas.pgm", (char *) "ej4.pgm", 84, 125);
-	Imagen imagen5 = ej5_contraste((char*) "imagenes/celulas.pgm", (char*) "ej5.pgm", 3, 250);
+	Imagen imagen5 = ej5_contraste((char*) "imagenes/llaves.pgm", (char*) "ej5.pgm", 3, 250);
 
 	return 0;
 };
@@ -182,9 +182,11 @@ Imagen ej5_contraste(char* fichE, char* fichS, const int min, const int max){
 
 	Imagen imagen;
 	imagen.LeerImagen(fichE);
+	Imagen contrastada(imagen.num_filas(), imagen.num_columnas());
+
 
 	// Obtener los valores límite de la imagen de entrada (Podemos hacer una función independiente):
-	int a,b;
+	float a,b;
 
 	for(int i=0; i<imagen.num_filas(); i++){
 		for(int j=0; j<imagen.num_columnas(); j++){
@@ -199,17 +201,20 @@ Imagen ej5_contraste(char* fichE, char* fichS, const int min, const int max){
 	}
 
 	// Definir la parte constante:
-	int constante = ((max-min)/(b-a));
+	float constante = ((max-min)/(b-a));
 
 	// Contrastando la imagen:
 	for(int i=0; i<imagen.num_filas(); i++){
 		for(int j=0; j<imagen.num_columnas(); j++){
-			imagen.asigna_pixel(i,j,(min+(constante*(imagen.valor_pixel(i,j)-a))));
+			float valor_float = min+(constante*(imagen.valor_pixel(i,j)-a));
+			int valor_redondeado = round(valor_float);
+			unsigned char valor_casted = (int)valor_redondeado;
+			contrastada.asigna_pixel(i,j, valor_casted);
 		}
 	}
 
 	// Guardar el resultado en un fichero:
-	imagen.EscribirImagen(fichS);
+	contrastada.EscribirImagen(fichS);
 
-	return imagen;
-};
+	return contrastada;
+}
