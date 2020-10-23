@@ -58,16 +58,18 @@ int Imagen::num_columnas() const{
 
 // Asigna un valor a un punto de la matriz
 void Imagen::asigna_pixel(int fila, int col, byte valor){
-	if (fila < nf && fila > 0 && col < nc && col > 0 && valor >= 0 && valor <= 255)
+	if (fila < nf && fila >= 0 && col < nc && col >= 0 && valor >= 0 && valor <= 255)
 		img[fila][col] = valor;
 }
 
 // Consulta el valor de un punto de la matriz
 byte Imagen::valor_pixel(int fila, int col) const{
-	if (fila < nf && fila > 0 && col < nc && col > 0)
+	if (fila < nf && fila >= 0 && col < nc && col >= 0)
 		return img[fila][col];
-	else
-		return 0;
+	else{
+		cerr << "Error: Se ha intentado acceder a una posición no permitida de la matriz img." << endl;
+		exit(2);
+	}
 }
 
 // Operador de asignación
@@ -140,25 +142,10 @@ void Imagen::EscribirImagen (char* ruta){
 // Lee la imagen desde un fichero
 void Imagen::LeerImagen (char* ruta){
 
-	TipoImagen tipo = LeerTipoImagen(ruta);
 	byte* img_array;
-	switch( tipo ){
-		case IMG_PGM:
-			img_array = LeerImagenPGM(ruta, nf, nc);
-			break;
-
-		case IMG_PPM:
-			img_array = LeerImagenPPM(ruta, nf, nc);
-			break;
-		
-		case IMG_DESCONOCIDO:
-			cerr << "Error: Formato de imagen no soportado." << endl;
-			cerr << "Terminando la ejecucion del programa." << endl;
-			exit (2);
-	};
+	img_array = LeerImagenPGM(ruta, nf, nc);
 
 	if (!img_array){
-		// No se ha podido leer la imagen
 		cerr << "Error: No pudo leerse la imagen." << endl;
     	cerr << "Terminando la ejecucion del programa." << endl;
     	exit (2);

@@ -102,7 +102,8 @@ class Imagen {
 	 * @param fila Fila donde se ubica el punto a consultar
 	 * @param col Columna donde se ubica el punto a consultar
 	 * @return byte que representa la luminosidad de una casilla
-	 * @pre 0 <= fila < num_filas() y 0 <= col < num_columnas()
+	 * @pre  0 <= fila < num_filas()
+	 * 		 0 <= col < num_columnas()
 	 * @post La imagen no se modifica y el valor a devolver está entre 0 y 255
 	 */
 	byte valor_pixel (int fila, int col) const;
@@ -120,7 +121,7 @@ class Imagen {
 	void EscribirImagen (char* ruta);
 
 	/**
-	 * @brief Entrada de una imagen desde un fichero
+	 * @brief Entrada de una imagen desde un fichero (Formato .pgm)
 	 * @param fichero ruta al fichero desde el que leer la imagen
 	 * @post Sobreescribe la instancia de Imagen actual
 	 */

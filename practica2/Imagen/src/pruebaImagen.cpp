@@ -9,22 +9,25 @@
 using namespace std;
 
 Imagen ej1_umbralizacion(const Imagen imagenE, const int T1, const int T2);
-Imagen ej3_zoom(const Imagen imagenE);
+Imagen ej3_zoom(const Imagen imagenE, const int X1, const int Y1, const int X2, const int Y2);
 Imagen ej4_icono(const Imagen original, const int nf, const int nc);
 Imagen ej5_contraste(const Imagen imagenE, const int min, const int max);
 
 
 int main (int argc, char* argv[]){
 	
+	// Lectura
 	Imagen vacas, llaves;
 	vacas.LeerImagen((char *)"imagenes/vacas.pgm");
 	llaves.LeerImagen((char *)"imagenes/llaves.pgm");
 
+	// Cálculos
 	Imagen imagen1 = ej1_umbralizacion(vacas, 50, 200);
-	Imagen imagen3 = ej3_zoom(vacas);
+	Imagen imagen3 = ej3_zoom(vacas, 100, 100, 200, 200);
 	Imagen imagen4 = ej4_icono(vacas, 84, 125);
 	Imagen imagen5 = ej5_contraste(llaves, 3, 250);
 
+	// Escritura
 	imagen1.EscribirImagen((char *) "ej1.pgm");
 	imagen3.EscribirImagen((char *) "ej3.pgm");
 	imagen4.EscribirImagen((char *) "ej4.pgm");
@@ -56,23 +59,30 @@ Imagen ej1_umbralizacion(const Imagen imagenE, const int T1, const int T2){
 	return imagenS;
 };
 
-Imagen ej3_zoom(const Imagen imagenE){
+Imagen ej3_zoom(const Imagen imagenE, const int X1, const int Y1, const int X2, const int Y2){
 	
-	// Comprueba que la imagen sea apta
-	const int N = imagenE.num_filas();
+	// Comprueba que la imagen cumpla las condiciones
+	const int N = X2-X1;
 
-	if (N != imagenE.num_columnas()){
+	if (N != (Y2-Y1)){
 		cerr << "Error: Esta función solo permite hacer zoom a imágenes cuadradas" << endl;		// <-- lo pone en el enunciado del ejercicio
 		exit (1);
 	};
 
+	if (X1 > imagenE.num_filas() || X2 > imagenE.num_filas() || Y1 > imagenE.num_columnas() || Y2 > imagenE.num_columnas()){
+		cerr << "Error: Las coordenadas a las que hacer zoom están fuera del rango de coordenadas posibles" << endl;
+		exit (1);
+	}
+
 	// Crea una nueva imagen con las dimensiones que tendrá al hacerle zoom
 	Imagen imagenS(2*N -1, 2*N -1);
 
-	// Inserta la imagen original en las posiciones que le corresponden de la nueva imagen
-	for (int i = 0; i < N; i ++)
-		for (int j = 0; j < N; j ++)
-			imagenS.asigna_pixel( 2*i, 2*j, imagenE.valor_pixel(i, j) );
+	// Inserta el fragmento de la imagen original en las posiciones que le corresponden de la nueva imagen
+	for (int i = 0; i < N; i++)
+		for (int j = 0; j < N; j++){
+			byte pixel = imagenE.valor_pixel(i+X1, j+Y1);
+			imagenS.asigna_pixel( 2*i, 2*j, pixel);
+		}
 	
 	// Interpola las columnas vacías de la imagen resultado
 	for (int i = 0; i < (2*N -1); i++)					// Recorre todas las filas
@@ -97,10 +107,9 @@ Imagen ej3_zoom(const Imagen imagenE){
 
 				imagenS.asigna_pixel(i, j, media);
 		}
-
+	
 	return imagenS;
 };
-
 
 Imagen ej4_icono(const Imagen original, const int nf, const int nc){
 
@@ -167,7 +176,6 @@ Imagen ej4_icono(const Imagen original, const int nf, const int nc){
 
 	return reducida;
 }
-
 
 Imagen ej5_contraste(const Imagen imagen, const int min, const int max){
 	// Fórmula a aplicar a cada píxel -> t(z) = z' = min + [((max-min) / (b-a)) * (z-a)];
