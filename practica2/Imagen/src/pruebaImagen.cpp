@@ -12,6 +12,7 @@ Imagen ej1_umbralizacion(const Imagen imagenE, const int T1, const int T2);
 Imagen ej3_zoom(const Imagen imagenE, const int X1, const int Y1, const int X2, const int Y2);
 Imagen ej4_icono(const Imagen original, const int nf, const int nc);
 Imagen ej5_contraste(const Imagen imagenE, const int min, const int max);
+Imagen ej6_morphing(const Imagen imagenOri, const Imagen imagenDest, const int pasos);
 
 
 int main (int argc, char* argv[]){
@@ -26,6 +27,7 @@ int main (int argc, char* argv[]){
 	Imagen imagen3 = ej3_zoom(vacas, 100, 100, 200, 200);
 	Imagen imagen4 = ej4_icono(vacas, 84, 125);
 	Imagen imagen5 = ej5_contraste(llaves, 3, 250);
+	Imagen imagen6 = ej6_morphing()
 
 	// Escritura
 	imagen1.EscribirImagen((char *) "ej1.pgm");
@@ -212,4 +214,24 @@ Imagen ej5_contraste(const Imagen imagen, const int min, const int max){
 	}
 
 	return contrastada;
+}
+
+Imagen ej6_morphing(const Imagen imagenOri, const Imagen imagenDest, const int pasos){
+
+	// Importación de las imágenes de origen y destino:
+
+	Imagen 
+
+    // Reparto de acumuladas de probabilidad:
+    int pasos = 10;
+    float division = pasos-1;
+    float probabilidades[pasos];	// Contiene las probabilidades de cada imagen.
+    
+    probabilidades[0] = 0.0;
+    
+    for(int i=1; i<pasos; i++){
+        float probabilidad = i/division;
+        probabilidades[i] = probabilidad;  
+    }
+
 }
