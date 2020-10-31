@@ -4,6 +4,9 @@
 #include <iostream>
 #include <math.h>
 #include <vector>
+#include <string.h>
+#include <stdio.h>
+#include <iomanip>
 #include "imagen.h"
 
 using namespace std;
@@ -12,28 +15,31 @@ Imagen ej1_umbralizacion(const Imagen imagenE, const int T1, const int T2);
 Imagen ej3_zoom(const Imagen imagenE, const int X1, const int Y1, const int X2, const int Y2);
 Imagen ej4_icono(const Imagen original, const int nf, const int nc);
 Imagen ej5_contraste(const Imagen imagenE, const int min, const int max);
-Imagen ej6_morphing(const Imagen imagenOri, const Imagen imagenDest, const int pasos);
+Imagen ej6_morphing(const Imagen imagenOri, const Imagen imagenDest, const int transicion);
 
 
 int main (int argc, char* argv[]){
 	
 	// Lectura
-	Imagen vacas, llaves;
+	Imagen vacas, llaves, gremlin, yoda;
 	vacas.LeerImagen((char *)"imagenes/vacas.pgm");
 	llaves.LeerImagen((char *)"imagenes/llaves.pgm");
+	gremlin.LeerImagen((char *)"imagenes/gremlin.pgm");
+	yoda.LeerImagen((char *)"imagenes/yoda.pgm");
 
 	// Cálculos
 	Imagen imagen1 = ej1_umbralizacion(vacas, 50, 200);
 	Imagen imagen3 = ej3_zoom(vacas, 100, 100, 200, 200);
-	Imagen imagen4 = ej4_icono(vacas, 84, 125);
+	Imagen imagen4 = ej4_icono(vacas, 84, 125);	
 	Imagen imagen5 = ej5_contraste(llaves, 3, 250);
-	Imagen imagen6 = ej6_morphing()
+	Imagen imagen6 = ej6_morphing(yoda, gremlin, 256);
 
 	// Escritura
 	imagen1.EscribirImagen((char *) "ej1.pgm");
 	imagen3.EscribirImagen((char *) "ej3.pgm");
-	imagen4.EscribirImagen((char *) "ej4.pgm");
+	imagen4.EscribirImagen((char *) "ej4.pgm");	
 	imagen5.EscribirImagen((char *) "ej5.pgm");
+	// --> Por motivos estéticos la escritura de las imágenes de morphing se hacen dentro de la función.
 
 	return 0;
 };
@@ -114,6 +120,10 @@ Imagen ej3_zoom(const Imagen imagenE, const int X1, const int Y1, const int X2, 
 };
 
 Imagen ej4_icono(const Imagen original, const int nf, const int nc){
+
+	if( (original.num_filas()/original.num_columnas()) != nf/nc){
+		cout << "ICONO -> No se ha mantenido la proporción original!" << endl;
+	}
 
 	int f_reducida = nf;
 	int c_reducida = nc;
@@ -216,22 +226,55 @@ Imagen ej5_contraste(const Imagen imagen, const int min, const int max){
 	return contrastada;
 }
 
-Imagen ej6_morphing(const Imagen imagenOri, const Imagen imagenDest, const int pasos){
-
-	// Importación de las imágenes de origen y destino:
-
-	Imagen 
+Imagen ej6_morphing(const Imagen imagenOri, const Imagen imagenDest, const int transicion){
 
     // Reparto de acumuladas de probabilidad:
-    int pasos = 10;
-    float division = pasos-1;
+    int pasos = transicion;
+    float division = (float)(pasos-1);
     float probabilidades[pasos];	// Contiene las probabilidades de cada imagen.
+
     
-    probabilidades[0] = 0.0;
-    
-    for(int i=1; i<pasos; i++){
-        float probabilidad = i/division;
+    for(int i=0; i<pasos; i++){
+        float probabilidad = (float)(i/division);
         probabilidades[i] = probabilidad;  
     }
 
+
+	// ALGORITMO DE TRANSFORMACIÓN:
+
+	for(int i=0; i<pasos; i++){
+
+		// Creo una imagen auxiliar:
+		Imagen auxiliar(imagenOri.num_filas(), imagenOri.num_columnas());
+
+		// Actualizo el valor de todos los pixeles de la imagen auxiliar para el paso "i":
+		int pixel_origen, pixel_destino;
+
+		for(int j=0; j<auxiliar.num_filas(); j++){
+			for(int k=0; k<auxiliar.num_columnas(); k++){
+
+				pixel_origen = imagenOri.valor_pixel(j,k);
+				pixel_destino = imagenDest.valor_pixel(j,k);
+
+				int pixel_transicion = (int)ceil(((float)((1-probabilidades[i])*pixel_origen)+(probabilidades[i]*pixel_destino)));
+				
+				auxiliar.asigna_pixel(j,k, pixel_transicion);
+			}
+		}
+
+		// Escribo la imagen:
+		string int_nombre = to_string(i);
+		const char* nombre = int_nombre.c_str();
+		const char* dir = "./morphing/";
+		const char* extension = ".pgm";
+		char ruta[20];
+		strcpy(ruta,dir);
+		strcat(ruta,nombre);
+		strcat(ruta,extension);
+			
+		auxiliar.EscribirImagen(ruta);
+			
+	}
+
+	return imagenOri;
 }

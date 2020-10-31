@@ -3,6 +3,7 @@ INC = include
 OBJ = obj
 BIN = bin
 CXX = g++
+MO = morphing
 CPPFLAGS = -Wall -g  -I$(INC) -c --std=c++11
 all:$(BIN)/pruebaImagen
 
@@ -24,9 +25,16 @@ $(OBJ)/imagenES.o: $(SRC)/imagenES.cpp $(INC)/imagenES.h
 
 clean :
 	-rm $(OBJ)/*
+	-rm $(MO)/*.pgm
+	-rm $(MO)/*.gif
 
 mrproper : clean
 	-rm $(BIN)/*
 
 execute:
 	./$(BIN)/pruebaImagen
+	@echo
+	@echo
+	@echo "Convirtiendo .PGM -> .GIF"
+	@echo "Espere unos segundos ..."
+	convert -delay 1 -loop 0 $(MO)/*.pgm $(MO)/morphed.gif
