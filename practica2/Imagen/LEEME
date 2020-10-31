@@ -1,0 +1,16 @@
+      << INSTRUCCIONES PARA COMPILAR Y EJECUTAR EL PROGRAMA >>
+
+
+
+Abra una terminal en el directorio principal de la práctica y ejecute los siguientes comandos:
+
+
+>> make
+>> make execute
+
+
+
+
+Una vez revisada la práctica puede eliminar los documentos objeto e imegenes creadas con el comando:
+
+>> make clean
