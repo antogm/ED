@@ -2,6 +2,7 @@ SRC = src
 INC = include
 OBJ = obj
 BIN = bin
+DOC = doc
 CXX = g++
 MO = morphing
 CPPFLAGS = -Wall -g  -I$(INC) -c --std=c++11
@@ -22,6 +23,9 @@ $(OBJ)/imagenES.o: $(SRC)/imagenES.cpp $(INC)/imagenES.h
 	$(CXX) $(CPPFLAGS) $(SRC)/imagenES.cpp -o $(OBJ)/imagenES.o
 
 # ************
+
+doxy : 
+	doxygen $(DOC)/Doxy-file
 
 clean :
 	-rm $(OBJ)/*

@@ -1,16 +1,19 @@
-      << INSTRUCCIONES PARA COMPILAR Y EJECUTAR EL PROGRAMA >>
+<< INSTRUCCIONES PARA COMPILAR Y EJECUTAR EL PROGRAMA >>
 
 
 
 Abra una terminal en el directorio principal de la práctica y ejecute los siguientes comandos:
 
-
 >> make
 >> make execute
 
 
+Para generar la documentación del código con Doxygen, ejecutar en el directorio principal de la práctica:
+
+>> make doxy
 
 
 Una vez revisada la práctica puede eliminar los documentos objeto e imegenes creadas con el comando:
 
 >> make clean
+>> make mrproper

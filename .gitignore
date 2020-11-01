@@ -3,8 +3,7 @@ practica2/Imagen/obj/*
 practica2/Imagen/bin/*
 practica2/Imagen/lib/*
 practica2/Imagen/imagenes/*
-
-practica2/Racional/*
+!practica2/Imagen/doc/Doxy-file
 practica2/Imagen/.vscode
 practica2/Imagen/*.ppm
 practica2/Imagen/*.pgm
