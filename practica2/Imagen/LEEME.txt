@@ -17,3 +17,11 @@ Una vez revisada la práctica puede eliminar los documentos objeto e imegenes cr
 
 >> make clean
 >> make mrproper
+
+
+
+--> Esta práctica ha sido realizada por los alumnos:
+
+	ANTONIO GONZALEZ MALDONADO
+	
+	JOSÉ ALBERTO RODRÍGUEZ GODOY
