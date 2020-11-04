@@ -8,3 +8,6 @@ practica2/Imagen/.vscode
 practica2/Imagen/*.ppm
 practica2/Imagen/*.pgm
 *.pdf
+
+practica3/obj/*
+practica3/bin/*
