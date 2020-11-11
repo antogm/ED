@@ -28,3 +28,5 @@ class Pila_max{
 	// Devuelve true si la pila no tiene elementos
 	bool vacia();
 };
+
+#include "pila_max_vd.cpp"

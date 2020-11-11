@@ -10,7 +10,7 @@ int main(){
 	
 	while (!p.vacia()){
 		elemento<int> x = p.tope();
-		cout << x << endl;
+		cout << x.ele << endl;
 		p.quitar();
 	}
 	

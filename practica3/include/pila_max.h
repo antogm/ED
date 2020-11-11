@@ -1,5 +1,5 @@
-#ifndef _pila_max_h
-#define _pila_max_h
+#ifndef pila_max_h
+#define pila_max_h
 
 #include <iostream>
 using namespace std;
@@ -22,7 +22,7 @@ ostream& operator<< (ostream& os , const elemento<T> &r ){
 #if CUAL_COMPILA==1
 #include "pila_max_vd.h"
 #elif CUAL_COMPILA==2
-//#include "pila_max_cola.h"
+#include "pila_max_cola.h"
 #endif
 
 #endif

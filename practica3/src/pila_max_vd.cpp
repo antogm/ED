@@ -1,7 +1,4 @@
 // Implementación del módulo vd del TDA Pila_max
-#include "pila_max.h"
-#if CUAL_COMPILA==1
-#include "pila_max_vd.h"
 
 template<class T>
 Pila_max<T>::Pila_max(){
@@ -45,5 +42,3 @@ template<class T>
 bool Pila_max<T>::vacia(){
 	return num_elem == 0;
 };
-
-#endif
