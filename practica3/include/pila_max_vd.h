@@ -9,7 +9,7 @@ template<typename T>
 class Pila_max{
 
 	private:
-	std::vector<T> v;
+	vector<T> v;
 	T maximo;
 	unsigned num_elem;
 
