@@ -1,3 +1,10 @@
+/**
+  * @file pila_max_vd.h
+  * @brief Fichero cabecera del módulo Pila_max_vd del TDA Pila_max 
+  *
+  * Gestiona una secuencia de elementos con facilidades para la inserción y borrado de elementos en el mismo extremo
+  */
+
 #include <cassert>
 #include <vector>
 using namespace std;
@@ -15,23 +22,36 @@ template<typename T>
 class Pila_max{
 
 	private:
-	vector<T> v;
-	T maximo;
-	unsigned num_elem;
+	vector<T> v;			// Contenedor en el que se almacenarán los elementos
+	T maximo;				// Valor máximo que se ha introducido en la pila
+	unsigned num_elem;		// Número de elementos contenidos en la pila
 
 	public:
+	/**
+     * @brief Constructor por defecto
+     */
 	Pila_max();
 
-	// Inserta un elemento como nuevo tope de la pila
+	/**
+     * @brief Añade un elemento al tope de la pila
+     * @param elem Elemento que se va a añadir
+     */
 	void poner(T ele);
 
-	// Quita el elemento del tope de la pila
+	/**
+     * @brief Quita el elemento del tope de la cola
+     */
 	void quitar();
 
-	// Devuelve el elemento del tope de la pila
+	/**
+     * @brief Devuelve el elemento del tope de la cola
+     */
 	elemento<T> tope();
 
-	// Devuelve true si la pila no tiene elementos
+	/**
+     * @brief Comprueba si la pila está vacía
+	 * @return true si la pila no contiene elementos
+     */
 	bool vacia();
 };
 
