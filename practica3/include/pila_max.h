@@ -1,23 +1,6 @@
 #ifndef pila_max_h
 #define pila_max_h
 
-#include <iostream>
-using namespace std;
-
-// Struct elemento que se usará en los módulos del TDA
-template <typename T>
-struct elemento{
-	T ele;
-	T maximo;
-};
-
-// Sobrecarga del operador << para el struct elemento
-template <class T>
-ostream& operator<< (ostream& os , const elemento<T> &r ){
-	os << r.ele;
-	return os;
-};
-
 #define CUAL_COMPILA 2
 #if CUAL_COMPILA==1
 #include "pila_max_vd.h"

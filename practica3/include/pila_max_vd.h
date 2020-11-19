@@ -1,9 +1,15 @@
 #include <cassert>
 #include <vector>
-#include "pila_max.h"
+using namespace std;
 
 #define N 10	// Será el número de celdas del vector que se reserven en cada resize
 				// Está hecho así para no tener que hacer resize en cada inserción
+
+template <typename T>
+struct elemento{
+	T ele;
+	T maximo;
+};
 
 template<typename T>
 class Pila_max{

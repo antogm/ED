@@ -1,5 +1,3 @@
-#include "cola.h"
-
 template<class T>
 Pila_max<T>::Pila_max(){
 	num_elem = 0;
@@ -8,6 +6,7 @@ Pila_max<T>::Pila_max(){
 // Inserta un elemento como nuevo tope de la pila
 template<class T>
 void Pila_max<T>::poner(T ele){
+	// Actualiza el valor maximo
 	if (num_elem == 0)
 		maximo = ele;
 	else if (ele > maximo)
@@ -37,6 +36,8 @@ void Pila_max<T>::poner(T ele){
 			c2.quitar();
 		}
 	}
+
+	num_elem++;
 };
 
 // Quita el elemento del tope de la pila
@@ -44,6 +45,8 @@ template<class T>
 void Pila_max<T>::quitar(){
 	if (num_elem > 0)
 		c1.quitar();
+
+	num_elem--;
 };
 
 // Devuelve el elemento del tope de la pila

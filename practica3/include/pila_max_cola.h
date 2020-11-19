@@ -1,5 +1,11 @@
-#include "pila_max.h"
 #include "cola.h"
+using namespace std;
+
+template <typename T>
+struct elemento{
+	T ele;
+	T maximo;
+};
 
 template <typename T>
 class Pila_max{
