@@ -11,3 +11,8 @@ practica2/Imagen/*.pgm
 
 practica3/obj/*
 practica3/bin/*
+practica4/.vscode/c_cpp_properties.json
+practica4/.vscode/settings.json
+practica4/añopasao.zip
+practica4/bin/test
+practica4/bin/usoguia
