@@ -7,16 +7,26 @@ FLAGS = -Wall -g -I$(INC) -I$(SRC) --std=c++11
 
 #
 
-all: $(BIN)/test clean
+all: $(BIN)/testdiccionario $(BIN)/testguia clean
 
-$(BIN)/usoguia: $(SRC)/usoguia.cpp
-	g++ $(FLAGS) -o $(BIN)/usoguia $(SRC)/usoguia.cpp
+# Guia_Tlf:
 
-$(BIN)/test: $(OBJ)/test.o $(INC)/diccionario.h
-	g++ $(FLAGS) -o $(BIN)/test $(OBJ)/test.o
+$(BIN)/testguia: $(OBJ)/testguia.o $(OBJ)/guiatlf.o
+	g++ $(FLAGS) -o $(BIN)/testguia $(OBJ)/testguia.o $(OBJ)/guiatlf.o
+
+$(OBJ)/testguia.o: $(SRC)/testguia.cpp
+	g++ $(FLAGS) -c -o $(OBJ)/testguia.o $(SRC)/testguia.cpp
+
+$(OBJ)/guiatlf.o: $(SRC)/guiatlf.cpp $(INC)/guiatlf.h
+	g++ $(FLAGS) -c -o $(OBJ)/guiatlf.o $(SRC)/guiatlf.cpp
+
+# Diccionario:
+
+$(BIN)/testdiccionario: $(OBJ)/testdiccionario.o $(INC)/diccionario.h
+	g++ $(FLAGS) -o $(BIN)/testdiccionario $(OBJ)/testdiccionario.o
 	
-$(OBJ)/test.o: $(SRC)/test.cpp
-	g++ $(FLAGS) -c -o $(OBJ)/test.o $(SRC)/test.cpp
+$(OBJ)/testdiccionario.o: $(SRC)/testdiccionario.cpp
+	g++ $(FLAGS) -c -o $(OBJ)/testdiccionario.o $(SRC)/testdiccionario.cpp
 
 #
 
