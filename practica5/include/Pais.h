@@ -2,6 +2,8 @@
 #define pais_h
 
 #include "Punto.h"
+#include <string>
+#include <iostream>
 
 class Pais{
   private:
@@ -11,19 +13,30 @@ class Pais{
     
   public:
     Pais(){}
-    Punto GetPunto()const { .....}
-    string GetPais()const{ .......}
-    string GetBandera()const{......}
+    Punto GetPunto()const {
+		return p;
+	}
+
+    string GetPais()const{
+		return pais;
+	}
+
+    string GetBandera()const{
+		return bandera;
+	}
     
     bool operator<(const Pais &P)const{
-	..............
-    }	
+		//
+	}
+
     bool operator==(const Pais &P)const{
-	..................
+		//
     }
-     bool operator==(const Punto &P)const{
-	..................
+
+    bool operator==(const Punto &P)const{
+		//
     }
+
     friend istream & operator>>(istream & is, Pais & P){
         double lat,lng;
 	
@@ -33,9 +46,10 @@ class Pais{
 
 		return is;
     }
+
     friend ostream & operator<<(ostream & os, const Pais &P){
-	os<<P.p<<" "<<P.pais<<" "<<P.bandera<<endl;
-	return os;
+		os<<P.p<<" "<<P.pais<<" "<<P.bandera<<endl;
+		return os;
     }
 };
 
