@@ -89,6 +89,6 @@ int main(int argc, char * argv[]){
 	I.LeerImagen(argv[1]);
 	double angulo=atof(argv[2]);
 	angulo = angulo*(M_PI)/180; //Pasamos el angulo radianes
-	Imagen Iout=Rota(I,angulo);
+	Imagen Iout = Rota(I,angulo);
 	Iout.EscribirImagen(argv[3]);
 }

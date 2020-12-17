@@ -1,12 +1,19 @@
-SRC = src
-INC = include
-OBJ = obj
-BIN = bin
+SRC = ./src
+INC = ./include
+OBJ = ./obj
+DOC = ./doc
+BIN = ./bin
 CXX = g++
-CPPFLAGS = -Wall -g  -I$(INC) -c
+CPPFLAGS = -Wall -g -I$(INC) --std=c++11
 
-	
-		
+# Primera semana -----> Prueba de la función "Rota()" del archivo <pruebarotacion.cpp>
+all: $(BIN)/pruebarotacion
+
+$(BIN)/pruebarotacion: $(OBJ)/pruebarotacion.o $(INC)/imagen.h
+	g++ $(CPPFLAGS) -o $(BIN)/pruebarotacion $(OBJ)/pruebarotacion.o
+
+$(OBJ)/pruebarotacion.o: $(SRC)/pruebarotacion.cpp 
+	g++ $(CPPFLAGS) -c -o $(OBJ)/pruebarotacion.o $(SRC)/pruebarotacion.cpp
 
 
 # ************ Generación de documentación ******************
