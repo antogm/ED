@@ -10,10 +10,12 @@ Imagen Rota(const Imagen &Io, double angulo) {
   double rads = angulo;
   double coseno = cos(angulo);
   double seno = sin(angulo);
+
   int rcorners[4], ccorners[4];
   int newimgrows, newimgcols;
   double new_row_min, new_col_min, new_row_max, new_col_max;
   double inter, inter1;
+
   rcorners[0] = 0;
   rcorners[1] = 0;
   ccorners[0] = 0;
@@ -22,23 +24,28 @@ Imagen Rota(const Imagen &Io, double angulo) {
   rcorners[3] = Io.num_filas() - 1;
   ccorners[1] = Io.num_cols() - 1;
   ccorners[3] = Io.num_cols() - 1;
+
   new_row_min = 0;
   new_col_min = 0;
   new_row_max = 0;
   new_col_max = 0;
   newimgrows = 0;
   newimgcols = 0;
+
   for (int count = 0; count < 4; count++) {
     inter = rcorners[count] * coseno + ccorners[count] * seno;
 
     if (inter < new_row_min)
       new_row_min = inter;
+
     if (inter > new_row_max)
       new_row_max = inter;
+    
     inter1 = -rcorners[count] * seno + ccorners[count] * coseno;
 
     if (inter1 < new_col_min)
       new_col_min = inter1;
+
     if (inter1 > new_col_max)
       new_col_max = inter1;
   }
@@ -57,8 +64,8 @@ Imagen Rota(const Imagen &Io, double angulo) {
       float old_col = -oldrowsin + oldcolcos;
       old_row = ceil((double)old_row);
       old_col = ceil((double)old_col);
-      if ((old_row >= 0) && (old_row < Io.num_filas()) && (old_col >= 0) &&
-          (old_col < Io.num_cols())) {
+
+      if ((old_row >= 0) && (old_row < Io.num_filas()) && (old_col >= 0) && (old_col < Io.num_cols())) {
         Iout(rows, cols) = Io(old_row, old_col);
 
       } else {

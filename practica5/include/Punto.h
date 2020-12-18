@@ -19,6 +19,14 @@ class Punto{
 		y = _y;
 	}
 
+	void setNombre(string _nombre){
+		nombre = _nombre;
+	}
+
+	string getNombre(){
+		return nombre;
+	}
+
 	double getX(){
 		return x;
 	}

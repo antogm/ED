@@ -17,11 +17,7 @@
   *
   * @see LeerTipoImagen
   */
-enum TipoImagen {IMG_DESCONOCIDO, ///< Tipo de imagen desconocido
-                 IMG_PGM,         ///< Imagen tipo PGM
-                 IMG_PPM          ///< Imagen tipo PPM
-                };
-
+enum TipoImagen {IMG_DESCONOCIDO, IMG_PGM, IMG_PPM};
 
 /**
   * @brief Consulta el tipo de imagen del archivo y sus dimensiones
@@ -93,4 +89,3 @@ bool EscribirImagenPGM (const char nombre[], const unsigned char datos[], int f,
 #endif
 
 /* Fin Fichero: imagenES.h */
-
