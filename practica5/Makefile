@@ -9,11 +9,17 @@ CPPFLAGS = -Wall -g -I$(INC) --std=c++11
 # Primera semana -----> Prueba de la función "Rota()" del archivo <pruebarotacion.cpp>
 all: $(BIN)/pruebarotacion
 
-$(BIN)/pruebarotacion: $(OBJ)/pruebarotacion.o $(INC)/imagen.h
-	g++ $(CPPFLAGS) -o $(BIN)/pruebarotacion $(OBJ)/pruebarotacion.o
+$(BIN)/pruebarotacion: $(OBJ)/pruebarotacion.o $(OBJ)/imagen.o $(OBJ)/imagenES.o
+	g++ $(CPPFLAGS) -o $(BIN)/pruebarotacion $(OBJ)/pruebarotacion.o $(OBJ)/imagen.o $(OBJ)/imagenES.o
 
 $(OBJ)/pruebarotacion.o: $(SRC)/pruebarotacion.cpp 
 	g++ $(CPPFLAGS) -c -o $(OBJ)/pruebarotacion.o $(SRC)/pruebarotacion.cpp
+
+$(OBJ)/imagen.o: $(SRC)/imagen.cpp $(INC)/imagen.h
+	g++ $(CPPFLAGS) -c -o $(OBJ)/imagen.o $(SRC)/imagen.cpp
+
+$(OBJ)/imagenES.o: $(SRC)/imagenES.cpp $(INC)/imagenES.h
+	g++ $(CPPFLAGS) -c -o $(OBJ)/imagenES.o $(SRC)/imagenES.cpp
 
 
 # ************ Generación de documentación ******************
