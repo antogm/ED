@@ -47,6 +47,14 @@ Imagen::Imagen(int f,int c){
 }
 
 /*********************************/
+Imagen::Imagen(const Imagen & I){
+	if (this!=&I){
+		Borrar();
+		Copiar(I);
+	}
+};
+
+/*********************************/
 Imagen & Imagen::operator=(const Imagen & I){
 	if (this!=&I){
 		Borrar();

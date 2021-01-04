@@ -12,15 +12,15 @@ using namespace std;
  * */
 
 Imagen Rota(const Imagen & Io,double angulo){
-	double rads=angulo;
+	double rads = angulo;
 	double coseno = cos(angulo);
 	double seno = sin(angulo);
 	
 	//Para obtener las dimensiones de la imagen
-	int rcorners[4],ccorners[4];
-	int newimgrows,newimgcols;
-	double new_row_min,new_col_min,new_row_max,new_col_max;
-	double inter,inter1;
+	int rcorners[4], ccorners[4];
+	int newimgrows, newimgcols;
+	double new_row_min, new_col_min, new_row_max, new_col_max;
+	double inter, inter1;
 
 	rcorners[0]=0;
 	rcorners[1]=0;
@@ -72,9 +72,9 @@ Imagen Rota(const Imagen & Io,double angulo){
 			old_col=ceil((double)old_col);
 			
 			if((old_row>=0) && (old_row<Io.num_filas()) && (old_col>=0)&&(old_col<Io.num_cols())){
-				Iout(rows,cols)=Io(old_row,old_col);
+				Iout(rows,cols) = Io(old_row,old_col);
 			}else
-				Iout(rows,cols).r=Iout(rows,cols).g=Iout(rows,cols).b=255;
+				Iout(rows,cols).r = Iout(rows,cols).g=Iout(rows,cols).b=255;
 		}
     }
 

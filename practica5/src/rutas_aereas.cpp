@@ -77,8 +77,7 @@ Imagen Rota(const Imagen &Io, double angulo) {
   return Iout;
 }
 
-void Pintar(int f1, int f2, int c1, int c2, Imagen &I, const Imagen &avion,
-            int mindisf, int mindisc) {
+void Pintar(int f1, int f2, int c1, int c2, Imagen &I, const Imagen &avion, int mindisf, int mindisc) {
 
   int fila, col;
   if (abs(f2 - f1) >= mindisf || abs(c2 - c1) >= mindisc) {
