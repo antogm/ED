@@ -28,3 +28,9 @@ practica5/.vscode/settings.json
 practica5/bin/pruebarotacion
 *.o
 *.o
+practica5/.DS_Store
+*.json
+practica5/bin/pruebarotacion
+practica5/obj/imagen.o
+practica5/obj/imagenES.o
+practica5/obj/pruebarotacion.o
