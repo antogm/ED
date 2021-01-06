@@ -1,3 +1,6 @@
+// Comando para ejecutar:
+// ./bin/rutas_aereas ./datos/paises.txt ./datos/imagenes/mapas/mapa1.ppm ./datos/imagenes/banderas ./datos/almacen_rutas.txt ./datos/imagenes/aviones/avion1.ppm ./datos/imagenes/aviones/mascara_avion1.ppm
+
 #include "Paises.h"
 #include "almacen_rutas.h"
 #include "imagen.h"
@@ -110,90 +113,88 @@ void Pintar(int f1, int f2, int c1, int c2, Imagen &I, const Imagen &avion, int 
 }
 
 int main(int argc, char *argv[]) {
-  if (argc != 7) {
-    cout << "Los parametros son:" << endl;
-    cout << "1.-Fichero con la informacion de los paises" << endl;
-    cout << "2.-Nombre de la imagen con el mapa del mundo" << endl;
-    cout << "3.-Directorio con las banderas" << endl;
-    cout << "4.-Fichero con el almacen de rutas" << endl;
-    cout << "5.- Nombre de la imagen con el avion" << endl;
-    cout << "6.- Nombre de la imagen de la mascara del avion" << endl;
+	if (argc != 7) {
+		cout << "Los parametros son:" << endl;
+		cout << "1.-Fichero con la informacion de los paises" << endl;
+		cout << "2.-Nombre de la imagen con el mapa del mundo" << endl;
+		cout << "3.-Directorio con las banderas" << endl;
+		cout << "4.-Fichero con el almacen de rutas" << endl;
+		cout << "5.- Nombre de la imagen con el avion" << endl;
+		cout << "6.- Nombre de la imagen de la mascara del avion" << endl;
 
-    return 0;
-  }
+		return 0;
+	}
 
-  Paises Pses;
-  ifstream f(argv[1]);
-  f >> Pses;
-  cout << Pses;
-  Imagen I;
-  I.LeerImagen(argv[2]);
+	Paises Pses;
+	ifstream f(argv[1]);
+	f >> Pses;
+	cout << Pses;
 
-  Imagen avion;
-  avion.LeerImagen(argv[5], argv[6]);
+	Imagen I;
+	I.LeerImagen(argv[2]);
 
-  Almacen_Rutas Ar;
-  f.close();
-  f.open(argv[4]);
-  f >> Ar;
+	Imagen avion;
+	avion.LeerImagen(argv[5], argv[6]);
 
-  cout << "Las rutas: " << endl << Ar;
-  cout << "Dime el codigo de una ruta" << endl;
-  string a;
-  cin >> a;
-  Ruta R = Ar.GetRuta(a);
-  cout << R;
+	Almacen_Rutas Ar;
+	f.close();
+	f.open(argv[4]);
+	f >> Ar;
 
-  Ruta::iterator it, it_before;
-  Paises::iterator ip_before = Pses.end();
-  Paises::iterator ip = Pses.end();
-  Imagen i_ban_inicio;
-  int posi_ini, posj_ini;
-  cout << endl;
-  for (it = R.begin(); it != R.end(); ++it) {
-    Punto pto = (*it);
+	cout << "Las rutas: " << endl << Ar;
+	cout << "Dime el codigo de una ruta" << endl;
+	string a;
+	cin >> a;
+	Ruta R = Ar.GetRuta(a);
+	cout << R;
 
-    ip_before = ip;
-    ip = Pses.find(pto);
-    string name = (*ip).GetBandera();
-    string n_com = argv[3] + name;
+	Ruta::iterator it, it_before;
+	Paises::iterator ip_before = Pses.end();
+	Paises::iterator ip = Pses.end();
+	Imagen i_ban_inicio;
+	int posi_ini, posj_ini;
+	cout << endl;
+  
+	for (it = R.begin(); it != R.end(); ++it) {
+		Punto pto = (*it);
 
-    Imagen i_ban;
-    i_ban.LeerImagen(n_com.c_str(), "");
-    cout << (*ip).GetPais() << endl;
-    int x = (int)((I.num_cols() / 360.0) * (180 + pto.GetLongitud()));
-    int y = (int)((I.num_filas() / 180.0) * (90 - pto.GetLatitud()));
-    if (ip_before != Pses.end()) {
-      int x_old =
-          (int)((I.num_cols() / 360.0) * (180 + (*it_before).GetLongitud()));
-      int y_old =
-          (int)((I.num_filas() / 180.0) * (90 - (*it_before).GetLatitud()));
+		ip_before = ip;
+		ip = Pses.find(pto);
+		string name = (*ip).GetBandera();
+		string n_com = argv[3] + name;
+		
+		Imagen i_ban;
+		i_ban.LeerImagen(n_com.c_str(), "");
+		cout << (*ip).GetPais() << endl;
+		int x = (int) ((I.num_cols() / 360.0) * (180 + pto.GetLongitud()));
+		int y = (int) ((I.num_filas() / 180.0) * (90 - pto.GetLatitud()));
+		
+		if (ip_before != Pses.end()) {
+			int x_old = (int)((I.num_cols() / 360.0) * (180 + (*it_before).GetLongitud()));
+			int y_old = (int)((I.num_filas() / 180.0) * (90 - (*it_before).GetLatitud()));
+			Pintar(y_old - avion.num_filas() / 2, y - avion.num_filas() / 2, x_old - avion.num_cols() / 2, x - avion.num_cols() / 2, I, avion, 50, 50);
+		}
 
-      Pintar(y_old - avion.num_filas() / 2, y - avion.num_filas() / 2,
-             x_old - avion.num_cols() / 2, x - avion.num_cols() / 2, I, avion,
-             50, 50);
-    }
-    I.PutImagen(y - i_ban.num_filas() / 2, x - i_ban.num_cols() / 2, i_ban,
-                BLENDING);
-    if (ip != Pses.begin()) {
-      I.PutImagen(posi_ini - i_ban_inicio.num_filas() / 2,
-                  posj_ini - i_ban_inicio.num_cols() / 2, i_ban_inicio,
-                  BLENDING);
-    }
-    i_ban_inicio = i_ban;
-    posi_ini = y;
-    posj_ini = x;
-    it_before = it;
-  }
+		I.PutImagen(y - i_ban.num_filas() / 2, x - i_ban.num_cols() / 2, i_ban, BLENDING);
+	
+		if (ip != Pses.begin()){
+			I.PutImagen(posi_ini - i_ban_inicio.num_filas() / 2, posj_ini - i_ban_inicio.num_cols() / 2, i_ban_inicio, BLENDING);
+		}
 
-  string nsal = a + ".ppm";
-  I.EscribirImagen(nsal.c_str());
+		i_ban_inicio = i_ban;
+		posi_ini = y;
+		posj_ini = x;
+		it_before = it;
+	}
+	
+  	string nsal = a + ".ppm";
+  	I.EscribirImagen(nsal.c_str());
 
-  cout << endl;
-  cout << "---Prueba sobre un punto dado:---" << endl;
-  Almacen_Rutas Ar_lim;
-  Punto pto(40.40051528912146, -3.5916460749999635);
-  cout << "El punto " << pto << "esta incluido en las rutas:" << endl;
-  Ar_lim = Ar.GetRutas_Con_Punto(pto);
-  cout << Ar_lim;
+  	cout << endl;
+  	cout << "---Prueba sobre un punto dado:---" << endl;
+  	Almacen_Rutas Ar_lim;
+  	Punto pto(40.40051528912146, -3.5916460749999635);
+  	cout << "El punto " << pto << "esta incluido en las rutas:" << endl;
+  	Ar_lim = Ar.GetRutas_Con_Punto(pto);
+  	cout << Ar_lim;
 }

@@ -1,5 +1,6 @@
 /*
-./bin/pruebapegado ./datos/imagenes/banderas/espana_reshigh.ppm ./datos/imagenes/aviones/avion2.ppm ./datos/imagenes/aviones/mascara_avion2.pgm ./espana_avion2_blending.ppm 0 0 1
+  Orden para ejecutar:
+  ./bin/pruebapegado ./datos/imagenes/banderas/espana_reshigh.ppm ./datos/imagenes/aviones/avion2.ppm ./datos/imagenes/aviones/mascara_avion2.pgm ./espana_avion2_blending.ppm 0 0 1
  */
 
 #include "imagen.h"

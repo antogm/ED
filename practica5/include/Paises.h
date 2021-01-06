@@ -48,7 +48,7 @@ class Paises{
 			return it.p !=p;
 		}
 
-		const Pais & operator*()const{
+		const Pais & operator*() const{
 			return *p;
 	    }
 
@@ -126,7 +126,7 @@ class Paises{
 		iterator it;
 		set<Pais>::iterator i;
 		
-		for (i=datos.begin(); i != datos.end() && !((*i) == p); ++i);
+		for (i=datos.begin(); i != datos.end() && !((*i) == p); ++i)
 			it.p=i;
 
 		return it;
@@ -144,18 +144,18 @@ class Paises{
 		Paises rlocal;
 	    
 		//leemos el comentario
-	    if (is.peek()=='#'){
+	    if (is.peek() == '#'){
 			string a;
 			getline(is,a);
 		}	
 	      
 		Pais P;
 		
-		while (is>>P){
+		while (is >> P){
 			rlocal.Insertar(P);
 		}
 
-		R=rlocal;
+		R = rlocal;
 		
 		return is;
 	}
