@@ -46,7 +46,7 @@ bool Punto::operator<(const Punto &otro){
 };
 
 bool Punto::operator==(const Punto &otro) const{
-	return ((x == otro.x) && (y == otro.y));
+	return (abs(x-otro.x) <= 1e-5 && abs(y-otro.y) <= 1e-5);
 };
 
 ostream & operator<<(ostream & os, const Punto &p){
