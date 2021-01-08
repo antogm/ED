@@ -9,7 +9,7 @@ CPPFLAGS = -Wall -g -I$(INC) --std=c++11
 all: $(BIN)/pruebarotacion $(BIN)/pruebapegado $(BIN)/rutas_aereas
 
 $(BIN)/rutas_aereas: $(OBJ)/rutas_aereas.o $(OBJ)/imagen.o $(OBJ)/imagenES.o $(INC)/Paises.h $(INC)/Pais.h $(OBJ)/ruta.o $(OBJ)/punto.o $(OBJ)/almacen_rutas.o
-	g++ $(CPPFLAGS) -o $(BIN)/rutas_aereas $(OBJ)/rutas_aereas.o $(OBJ)/imagen.o $(OBJ)/imagenES.o $(INC)/Paises.h $(INC)/Pais.h $(OBJ)/ruta.o $(OBJ)/punto.o $(OBJ)/almacen_rutas.o
+	g++ $(CPPFLAGS) -o $(BIN)/rutas_aereas $(OBJ)/rutas_aereas.o $(OBJ)/imagen.o $(OBJ)/imagenES.o $(INC)/Pais.h $(INC)/Paises.h $(OBJ)/ruta.o $(OBJ)/punto.o $(OBJ)/almacen_rutas.o
 
 $(BIN)/pruebarotacion: $(OBJ)/pruebarotacion.o $(OBJ)/imagen.o $(OBJ)/imagenES.o
 	g++ $(CPPFLAGS) -o $(BIN)/pruebarotacion $(OBJ)/pruebarotacion.o $(OBJ)/imagen.o $(OBJ)/imagenES.o

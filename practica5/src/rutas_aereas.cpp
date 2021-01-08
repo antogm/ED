@@ -1,3 +1,6 @@
+// Comando para ejecutar
+// 
+
 #include "Paises.h"
 #include "almacen_rutas.h"
 #include "imagen.h"
@@ -131,7 +134,7 @@ int main(int argc, char *argv[]) {
   f.open(argv[4]);
   f >> Ar;
 
-  cout << "Las rutas: " << endl << Ar;
+  cout << endl << "Las rutas: " << endl << Ar;
   cout << "Dime el codigo de una ruta" << endl;
   string a;
   cin >> a;
@@ -146,12 +149,14 @@ int main(int argc, char *argv[]) {
   cout << endl;
   for (it = R.begin(); it != R.end(); ++it) {
     Punto pto = (*it);
-
+    
     ip_before = ip;
     ip = Pses.find(pto);
+    cout << "ip: "<< (*ip).GetPais() << endl;
+    break;
     string name = (*ip).GetBandera();
     string n_com = argv[3] + name;
-
+  
     Imagen i_ban;
     i_ban.LeerImagen(n_com.c_str(), "");
     cout << (*ip).GetPais() << endl;
@@ -163,16 +168,11 @@ int main(int argc, char *argv[]) {
       int y_old =
           (int)((I.num_filas() / 180.0) * (90 - (*it_before).GetLatitud()));
 
-      Pintar(y_old - avion.num_filas() / 2, y - avion.num_filas() / 2,
-             x_old - avion.num_cols() / 2, x - avion.num_cols() / 2, I, avion,
-             50, 50);
+      Pintar(y_old - avion.num_filas() / 2, y - avion.num_filas() / 2, x_old - avion.num_cols() / 2, x - avion.num_cols() / 2, I, avion, 50, 50);
     }
-    I.PutImagen(y - i_ban.num_filas() / 2, x - i_ban.num_cols() / 2, i_ban,
-                BLENDING);
+    I.PutImagen(y - i_ban.num_filas() / 2, x - i_ban.num_cols() / 2, i_ban, BLENDING);
     if (ip != Pses.begin()) {
-      I.PutImagen(posi_ini - i_ban_inicio.num_filas() / 2,
-                  posj_ini - i_ban_inicio.num_cols() / 2, i_ban_inicio,
-                  BLENDING);
+      I.PutImagen(posi_ini - i_ban_inicio.num_filas() / 2, posj_ini - i_ban_inicio.num_cols() / 2, i_ban_inicio, BLENDING);
     }
     i_ban_inicio = i_ban;
     posi_ini = y;

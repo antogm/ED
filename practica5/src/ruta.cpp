@@ -39,16 +39,17 @@ Punto Ruta::getPunto(int i) const{
 	return puntos[i];
 };
 
-bool Ruta::existePunto(Punto p) const{
-	for (vector<Punto>::const_iterator it = puntos.cbegin(); it != puntos.cend(); ++it)
+bool Ruta::existePunto(Punto p){
+	for (vector<Punto>::const_iterator it = puntos.cbegin(); it != puntos.cend(); ++it){
 		if (*it == p)
 			return true;
+	}
 
 	return false;
 };
 
 bool Ruta::operator!=(const Ruta &otro){
-	return codigo == otro.codigo;
+	return codigo != otro.codigo;
 };
 
 ostream & operator<<(ostream & os, const Ruta &r){

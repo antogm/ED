@@ -13,8 +13,9 @@ Almacen_Rutas Almacen_Rutas::GetRutas_Con_Punto(Punto p){
 	Almacen_Rutas rutas_con_p;
 
 	for (map<string,Ruta,less<string>>::iterator it = rutas.begin(); it != rutas.end(); ++it){
-		if ( (*it).second.existePunto(p) )
+		if ( (*it).second.existePunto(p) ){
 			rutas_con_p.InsertarRuta( (*it).second );
+		}
 	}
 
 	return rutas_con_p;
@@ -27,10 +28,8 @@ Almacen_Rutas& Almacen_Rutas::operator=(const Almacen_Rutas &otro){
 
 
 ostream & operator<<(ostream & os, const Almacen_Rutas &r){
-	os << "#Rutas" << endl;
-
 	for (map<string,Ruta,less<string>>::const_iterator it = r.rutas.cbegin(); it != r.rutas.cend(); ++it)
-		os << (*it).second;
+		os << (*it).second << endl;
 
 	return os;
 };

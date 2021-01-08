@@ -62,7 +62,7 @@ class Ruta{
 	 * @brief Comprueba si el punto pasado como parámetor forma parte de la ruta
 	 * @return true si el punto forma parte de la ruta, false en otro caso
 	 */
-	bool existePunto(Punto p) const;
+	bool existePunto(Punto p);
 
 	bool operator!=(const Ruta &otro);
 
