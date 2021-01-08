@@ -30,11 +30,11 @@ string Punto::getNombre(){
 	return nombre;
 }
 
-double Punto::GetLongitud() const{
+double Punto::GetLatitud() const{
 	return x;
 }
 
-double Punto::GetLatitud() const{
+double Punto::GetLongitud() const{
 	return y;
 }
 
@@ -46,7 +46,7 @@ bool Punto::operator<(const Punto &otro){
 };
 
 bool Punto::operator==(const Punto &otro) const{
-	return (abs(x-otro.x) <= 1e-5 && abs(y-otro.y) <= 1e-5);
+	return (abs(x-otro.x) <= 0.0001 && abs(y-otro.y) <= 0.0001);
 };
 
 ostream & operator<<(ostream & os, const Punto &p){

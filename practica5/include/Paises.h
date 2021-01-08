@@ -129,10 +129,14 @@ class Paises{
 	    iterator it;
 	    set<Pais>::iterator i;
 
-	    for (i = datos.begin(); i != datos.end() && !((*i).GetPunto() == p); ++i)
-	    	it.p=i;
+	    for (i = datos.begin(); i != datos.end(); ++i)
+	    	if ((*i) == p){
+				it.p = i;
+				return it;
+			}
 
-	    return it;
+	    it.p = datos.end();
+		return it;
 	}
 
 	friend istream & operator>>(istream & is, Paises & R){

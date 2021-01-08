@@ -36,7 +36,7 @@ ostream & operator<<(ostream & os, const Almacen_Rutas &r){
 
 istream & operator>>(istream &is, Almacen_Rutas &r){
 	Almacen_Rutas rlocal;
-	    
+	
 	//leemos el comentario
 	if (is.peek() == '#'){
 		string a;

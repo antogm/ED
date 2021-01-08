@@ -26,22 +26,16 @@ class Imagen{
   public:
 
 	Imagen();
-
 	Imagen(int f,int c);
-
 	Imagen(const Imagen & I);
-
 	Imagen & operator=(const Imagen & I);
-
 	~Imagen();
 
 	//set y get
 	Pixel & operator ()(int i,int j);
-
 	const Pixel & operator ()(int i,int j)const;
 
 	void EscribirImagen(const char * nombre);
-
 	void LeerImagen (const char *nombre,const string &nombremascara="");
 	void LimpiarTransp();
 	int num_filas()const{return nf;}
