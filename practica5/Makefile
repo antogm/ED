@@ -26,7 +26,7 @@ $(OBJ)/pruebapegado.o: $(SRC)/pruebapegado.cpp
 $(OBJ)/pruebarotacion.o: $(SRC)/pruebarotacion.cpp 
 	g++ $(CPPFLAGS) -c -o $(OBJ)/pruebarotacion.o $(SRC)/pruebarotacion.cpp
 
-$(OBJ)/ruta.o: $(INC)/ruta.h $(SRC)/ruta.cpp
+$(OBJ)/ruta.o: $(INC)/Ruta.h $(SRC)/ruta.cpp
 	g++ $(CPPFLAGS) -c -o $(OBJ)/ruta.o $(SRC)/ruta.cpp
 
 $(OBJ)/almacen_rutas.o: $(INC)/almacen_rutas.h $(SRC)/almacen_rutas.cpp
