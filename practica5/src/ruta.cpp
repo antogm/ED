@@ -1,6 +1,6 @@
 // Implementación del módulo Ruta
 
-#include "ruta.h"
+#include "Ruta.h"
 
 Ruta::Ruta(){
 	codigo = "";

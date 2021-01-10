@@ -5,7 +5,7 @@
 
 #include <vector>
 #include <assert.h>
-#include "punto.h"
+#include "Punto.h"
 using namespace std;
 
 class Ruta{
@@ -16,28 +16,31 @@ class Ruta{
 
 	public:
 	/**
-	 * @brief Constructor por defecto
-	 */
+	* @brief Constructor de la clase Ruta por defecto.
+	*/
 	Ruta();
 
 	/**
-	 * @brief Constructor con el código de la ruta como parámetro
-	 */
+	* @brief Constructor con código de la ruta como parámetros.
+	* @param codigo Cadena de código de entrada.
+	*/
 	Ruta(string codigo);
 
 	/**
-	 * @brief Inserta un nuevo Punto al final de la ruta
-	 */
+	* @brief Inserta un nuevo punto al final de la ruta.
+	* @param p Punto a insertar.
+	*/
 	void insertarPunto(Punto p);
 
 	/**
-	 * @brief Borra el último Punto añadido a la ruta
-	 */
+	* @brief Borra el último punto añadido a la ruta.
+	*/
 	void borrarPunto();
 
 	/**
-	 * @brief Cambia el código de la ruta
-	 */
+	* @brief Cambia el código de la ruta.
+	* @param c Cadena con el nuevo código.
+	*/
 	void setCodigo(string c);
 
 	/**
@@ -53,17 +56,24 @@ class Ruta{
 	int getNumPuntos() const;
 
 	/**
-	 * @brief Consultor para los puntos de la ruta
+	 * @brief Consultor para los puntos de la ruta.
+	 * @param i Posición de búsqueda.
 	 * @return punto correspondiente a la posición i
 	 */
 	Punto getPunto(int i) const;
 
 	/**
-	 * @brief Comprueba si el punto pasado como parámetor forma parte de la ruta
+	 * @brief Comprueba si el punto pasado como parámetro forma parte de la ruta
+	 * @param p Punto a comprobar.
 	 * @return true si el punto forma parte de la ruta, false en otro caso
 	 */
 	bool existePunto(Punto p);
 
+	/**
+	 * @brief Comprueba si una ruta no es igual que otra pasada por parámetro.
+	 * @param p Punto a comprobar.
+	 * @return true si el punto forma parte de la ruta, false en otro caso
+	 */
 	bool operator!=(const Ruta &otro);
 
 	friend ostream & operator<<(ostream & os, const Ruta &r);
