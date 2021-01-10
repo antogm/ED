@@ -71,12 +71,25 @@ class Ruta{
 
 	/**
 	 * @brief Comprueba si una ruta no es igual que otra pasada por parámetro.
-	 * @param p Punto a comprobar.
-	 * @return true si el punto forma parte de la ruta, false en otro caso
+	 * @param otro Otra ruta.
+	 * @return True si no son la misma ruta, false si lo son.
 	 */
 	bool operator!=(const Ruta &otro);
 
+	/**
+	 * @brief Imprime por pantalla la ruta especificada.
+	 * @param os Salida por pantalla
+	 * @param r Ruta
+	 * @return Salida estandar
+	 */
 	friend ostream & operator<<(ostream & os, const Ruta &r);
+
+	/**
+	 * @brief Lee de fichero la información de puntos y rutas y crea una nueva ruta con ellos.
+	 * @param is Entrada de flujo de datos (fichero)
+	 * @param r Ruta
+	 * @return Entrada de flujo de datos
+	 */
 	friend istream & operator>>(istream &is, Ruta &r);
 
 	class iterator{
@@ -84,12 +97,42 @@ class Ruta{
 		vector<Punto>::iterator it;
 
 		public:
+		/**
+		 * @brief Constructor por defecto de la subclase iterator.
+		 */
 		iterator();
+		/**
+		 * @brief Operador de incremento de posición del iterador.
+		 * @return Iterador al siguiente elemento
+		 */
 	    iterator & operator ++();
+		/**
+		 * @brief Operador de decremento de posición del iterador.
+		 * @return Iterador al anterior elemento
+		 */
 	    iterator & operator --();
+		/**
+		 * @brief Comprueba si dos iteradores son iguales
+		 * @param otrit Otro iterador para comparar.
+		 * @return True -> Lo son, False -> No lo son.
+		 */
 	    bool operator ==(const iterator  & otroit);
+		/**
+		 * @brief Comprueba si dos iteradores son distintos
+		 * @param otrit Otro iterador para comparar.
+		 * @return False -> Lo son, True -> No lo son.
+		 */
 	    bool operator !=(const iterator  & otroit);
+		/**
+		 * @brief Desreferencia un iterador
+		 * @return Valor al que hace referencia el iterador actual.
+		 */
 		const Punto & operator*() const;
+		/**
+		 * @brief Iguala dos iteradores
+		 * @param otrit Otro iterador para igualar.
+		 * @return Iterador actual
+		 */
 		iterator & operator=(const iterator & otroit);
 
 	    friend class Ruta;
@@ -101,21 +144,70 @@ class Ruta{
 		vector<Punto>::const_iterator it;
 
 		public:
+		/**
+		 * @brief Constructor por defecto de la subclase const_iterator.
+		 */
 		const_iterator();
+		/**
+		 * @brief Constructor por parámetros de copia.
+		 */
 	    const_iterator(const iterator & otroit);
+		/**
+		 * @brief Comprueba si dos iteradores son iguales
+		 * @param otrit Otro iterador para comparar.
+		 * @return True -> Lo son, False -> No lo son.
+		 */
 	    const_iterator & operator=(const iterator & otroit);
+		/**
+		 * @brief Operador de incremento de posición del iterador.
+		 * @return Iterador al siguiente elemento
+		 */
 	    const_iterator & operator ++();
+		/**
+		 * @brief Operador de decremento de posición del iterador.
+		 * @return Iterador al anterior elemento
+		 */
 	    const_iterator & operator --();
+		/**
+		 * @brief Comprueba si dos iteradores son iguales
+		 * @param otrit Otro iterador para comparar.
+		 * @return True -> Lo son, False -> No lo son.
+		 */
 	    bool operator ==(const const_iterator  & otroit);
+		/**
+		 * @brief Comprueba si dos iteradores son distintos
+		 * @param otrit Otro iterador para comparar.
+		 * @return False -> Lo son, True -> No lo son.
+		 */
 	    bool operator !=(const const_iterator  & otroit);
+		/**
+		 * @brief Desreferencia un iterador
+		 * @return Valor al que hace referencia el iterador actual.
+		 */
 	    const Punto &operator*()const;
 		
 	    friend class Ruta;
 	};
 
+	/**
+	 * @brief Iterador al inicio de la ruta.
+	 * @return Iterador al primero punto de la ruta.
+	 */
 	iterator begin();
+	/**
+	 * @brief Iterador al final de la ruta.
+	 * @return Iterador al punto final de la ruta.
+	 */
 	iterator end();
+	/**
+	 * @brief Iterador constante al inicio de la ruta.
+	 * @return Iterador constante al primero punto de la ruta.
+	 */
 	const_iterator cbegin() const;
+	/**
+	 * @brief Iterador constante al final de la ruta.
+	 * @return Iterador constante al punto final de la ruta.
+	 */
 	const_iterator cend() const;
 };
 

@@ -9,12 +9,43 @@ class Almacen_Rutas{
 	map<string,Ruta,less<string>> rutas;
 
 	public:
-	void InsertarRuta(const Ruta &r);
-	Ruta GetRuta(string code);
-	Almacen_Rutas GetRutas_Con_Punto(Punto p);
-	Almacen_Rutas& operator=(const Almacen_Rutas &otro);
 
+	/**
+	* @brief Inserta una ruta en el almacen de rutas.
+	* @param ruta Ruta
+	*/
+	void InsertarRuta(const Ruta &r);
+	/**
+	* @brief Constructor con código de la ruta como parámetros.
+	* @param code Código de la ruta
+	* @return Ruta seleccionada
+	*/
+	Ruta GetRuta(string code);
+	/**
+	* @brief Busqueda de rutas que incorporen el punto actual en ellas.
+	* @param p Punto como búsqueda.
+	* @return Contenedor Almacen_Rutas con las rutas que contienen ese punto.
+	*/
+	Almacen_Rutas GetRutas_Con_Punto(Punto p);
+	/**
+	* @brief Iguala un contenedor de Almacen_rutas con otro pasado por parámetro.
+	* @param otro Segundo contenedor Almacen_Rutas.
+	* @return Almacen_Rutas actual
+	*/
+	Almacen_Rutas& operator=(const Almacen_Rutas &otro);
+	/**
+	* @brief Imprime las rutas que contiene el almacen de rutas.
+	* @param os Flujo de salida
+	* @param r Almacend de rutas.
+	* @return Flujo de salida.
+	*/
 	friend ostream & operator<<(ostream & os, const Almacen_Rutas &r);
+	/**
+	* @brief Inserta rutas en el almacen de rutas leidas por fichero.
+	* @param is Flujo de entrada
+	* @param r Almacend de rutas.
+	* @return Flujo de entrada.
+	*/
 	friend istream & operator>>(istream &is, Almacen_Rutas &r);
 
 	class iterator{
