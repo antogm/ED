@@ -47,6 +47,7 @@ istream & operator>>(istream &is, Almacen_Rutas &r){
 		
 	while (is >> ruta){
 		rlocal.InsertarRuta(ruta);
+		ruta = Ruta();
 	}
 
 	r = rlocal;
