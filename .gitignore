@@ -50,3 +50,4 @@ practica5/.vscode/settings.json
 *.html
 */obj/*
 */doc/html/*
+*.DS_Store
