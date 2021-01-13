@@ -47,3 +47,6 @@ practica5/bin/rutas_aereas
 practica5/.vscode/settings.json
 practica5/bin/rutas_aereas
 practica5/.vscode/settings.json
+*.html
+*/obj/*
+*/doc/html/*
