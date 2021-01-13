@@ -1,0 +1,1 @@
+En el módulo Ruta se usa un contenedor de tipo list para los puntos, porque sólo se van a insertar y borrar los puntos del final de la colección, aunque conlleva que el acceso por índice de GetPunto(int) tenga peor eficiencia.
