@@ -51,3 +51,4 @@ practica5/.vscode/settings.json
 */obj/*
 */doc/html/*
 *.DS_Store
+practica5/*.ppm
