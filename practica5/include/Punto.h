@@ -73,10 +73,10 @@ class Punto{
 		* @return Compara sus latitudes (x) y si tienen la misma compara por sus longitudes (y).
 		*/
 		bool operator<(const Punto &otro) const{
-			if (!(x == otro.x))
-				return x < otro.x;
+			if (x == otro.x)
+				return y < otro.GetLongitud();
 			else
-				return y < otro.y;
+				return x < otro.GetLatitud();				
 		};
 
 		/**

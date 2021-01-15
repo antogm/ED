@@ -88,6 +88,8 @@ class Ruta{
 
 			cont++;
 		}
+
+		return Punto();	// devuelve un valor nulo si no lo encuentra
 	};
 
 	/**
